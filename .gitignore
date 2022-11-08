@@ -1,0 +1,16 @@
+.vs
+*~
+*.bak
+temp
+bin/
+obj/
+packages/
+NUnit-2.6.4/
+NUnit-2.6.4.zip
+*.lock
+XLingPaperPDFTemp/
+UserDocumentation.css
+UserDocumentation.htm
+*.csproj.user
+myText.ana
+data/
