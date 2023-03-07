@@ -1,4 +1,5 @@
 ^<AV>ajar1.1<v>$
+^<AV>amat1.1<v><LOC><Cont>$
 ^<AV>amat1.1<v><Cont><LOC>$
 ^<AV>ambil1.1<v>$
 ^<AV>baca1.1<v>$

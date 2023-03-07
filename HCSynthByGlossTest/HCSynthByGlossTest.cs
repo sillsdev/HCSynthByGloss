@@ -64,7 +64,7 @@ namespace SIL.HCSynthByGlossTest
             Assert.AreEqual("", synthesizedWordForms);
 
             glosses = File.ReadAllText(glossFile, Encoding.UTF8);
-            Assert.AreEqual(1089, glosses.Length);
+            Assert.AreEqual(1118, glosses.Length);
             synthesizedWordForms = synthesizer.SynthesizeGlosses(glosses, morpher);
             string expectedWordForms = File.ReadAllText(expectedWordFormsFile, Encoding.UTF8);
             Assert.AreEqual(expectedWordForms, synthesizedWordForms);
