@@ -36,10 +36,34 @@ namespace SIL.HCSynthByGloss
             {
                 string analysis = glosses.Substring(indexBeg, (indexEnd - indexBeg) + 1);
                 List<IMorpheme> morphemes = analysesCreator.ExtractMorphemes(analysis, morpher);
-                WordAnalysis wordAnalysis = new WordAnalysis(morphemes, 1, analysesCreator.category);
-                var newSyntheses = morpher.GenerateWords(wordAnalysis);
-                string result = formatter.Format(newSyntheses, analysis);
-                sb.Append(result);
+                if (morphemes.Contains(null))
+                {
+                    sb.Append(formatter.Format(new List<string>(), analysis));
+                    sb.Append(" One or more glosses not found: ");
+                    for (int i = 0; i < morphemes.Count; i++)
+                    {
+                        IMorpheme morpheme = morphemes[i];
+                        if (morpheme == null)
+                        {
+                            sb.Append("(");
+                            sb.Append(analysesCreator.Forms[i]);
+                            sb.Append(" missing)");
+                        }
+                        else
+                        {
+                            sb.Append(" ");
+                            sb.Append(morpheme.Gloss);
+                            sb.Append(" ");
+                        }
+                    }
+                }
+                else
+                {
+                    WordAnalysis wordAnalysis = new WordAnalysis(morphemes, 1, analysesCreator.category);
+                    var newSyntheses = morpher.GenerateWords(wordAnalysis);
+                    string result = formatter.Format(newSyntheses, analysis);
+                    sb.Append(result);
+                }
                 sb.Append("\n");
                 int lastIndexEnd = indexEnd;
                 indexCaret = glosses.Substring(lastIndexEnd).IndexOf("^");

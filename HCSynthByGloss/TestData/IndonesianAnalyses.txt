@@ -52,3 +52,6 @@
 ^<AV>wakil1.1<v><APPL>$
 ^<AV>yakin1.1<v><CAUSi>$
 ^<AV>ziarah1.1<v><LOC>$
+^<AVxyz>yakin1.1<v><CAUSi>$
+^<AV>yakin1.1<v><CAUSiXyz>$
+^<AVxyz>yakinxyz1.1<v><CAUSi>$

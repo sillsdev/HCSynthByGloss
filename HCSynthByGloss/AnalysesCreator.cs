@@ -18,6 +18,7 @@ namespace SIL.HCSynthByGloss
         public string category { get; set; } = "";
         const char closingWedge = '>';
         const char openingWedge = '<';
+        public List<string> Forms { get; } = new List<string>();
 
         public static AnalysesCreator Instance
         {
@@ -30,6 +31,7 @@ namespace SIL.HCSynthByGloss
         public List<IMorpheme> ExtractMorphemes(string analysis, Morpher srcMorpher)
         {
             List<IMorpheme> morphemes = new List<IMorpheme>();
+            instance.Forms.Clear();
             var state = State.BEGIN;
             int index = 0;
             while (index < analysis.Length)
@@ -92,6 +94,7 @@ namespace SIL.HCSynthByGloss
             {
                 morphemes.Add(null);
             }
+            instance.Forms.Add(shape);
             index = indexEnd + 1;
             return index;
         }
