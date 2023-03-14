@@ -55,3 +55,4 @@
 ^<AVxyz>yakin1.1<v><CAUSi>$
 ^<AV>yakin1.1<v><CAUSiXyz>$
 ^<AVxyz>yakinxyz1.1<v><CAUSi>$
+^<AV>wakil1.1<v><APPL>$ ^<AV>tulis1.1<v>$

@@ -64,13 +64,29 @@ namespace SIL.HCSynthByGloss
                     string result = formatter.Format(newSyntheses, analysis);
                     sb.Append(result);
                 }
-                sb.Append("\n");
                 int lastIndexEnd = indexEnd;
-                indexCaret = glosses.Substring(lastIndexEnd).IndexOf("^");
+                indexCaret = AppendWhiteSpace(glosses, sb, lastIndexEnd);
                 indexBeg = indexCaret + lastIndexEnd;
                 indexEnd = glosses.Substring(lastIndexEnd + 1).IndexOf("$") + lastIndexEnd + 1;
             }
             return sb.ToString();
+        }
+
+        private static int AppendWhiteSpace(string glosses, StringBuilder sb, int lastIndexEnd)
+        {
+            int indexWhiteSpace = lastIndexEnd + 1;
+            int indexCaret = glosses.Substring(lastIndexEnd).IndexOf("^");
+            if (indexCaret != -1)
+            {
+                string afterDollar = glosses.Substring(indexWhiteSpace, (lastIndexEnd + indexCaret) - indexWhiteSpace);
+                if (indexWhiteSpace < glosses.Length && !afterDollar.Contains("\n"))
+                    sb.Append(" ");
+                else
+                    sb.Append("\n");
+            }
+            else
+                sb.Append("\n");
+            return indexCaret;
         }
     }
 }

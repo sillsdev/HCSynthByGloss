@@ -55,3 +55,4 @@ menziarahi
 %0%^<AVxyz>yakin1.1<v><CAUSi>$% One or more glosses not found: (AVxyz missing) yakin1.1  CAUSi 
 %0%^<AV>yakin1.1<v><CAUSiXyz>$% One or more glosses not found:  AV  yakin1.1 (CAUSiXyz missing)
 %0%^<AVxyz>yakinxyz1.1<v><CAUSi>$% One or more glosses not found: (AVxyz missing)(yakinxyz1.1 missing) CAUSi 
+mewakili menulis
