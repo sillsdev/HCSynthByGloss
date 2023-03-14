@@ -51,6 +51,7 @@ namespace SIL.HCSynthByGlossTest
             Assert.AreEqual("AV", morphemes.ElementAt(0).Gloss);
             Assert.AreEqual("ajar1.1", morphemes.ElementAt(1).Gloss);
             Assert.AreEqual("v", creator.category);
+            Assert.AreEqual(1, creator.RootIndex);
 
             analysis = "^<AVxyz>ajar1.1<v>$";
             morphemes = creator.ExtractMorphemes(analysis, morpher);
@@ -59,6 +60,26 @@ namespace SIL.HCSynthByGlossTest
             Assert.AreEqual("ajar1.1", morphemes.ElementAt(1).Gloss);
             Assert.AreEqual("v", creator.category);
             Assert.AreEqual("AVxyz", creator.Forms[0]);
+            Assert.AreEqual(1, creator.RootIndex);
+
+            analysis = "^ajar1.1<v><APPL><LOC>$";
+            morphemes = creator.ExtractMorphemes(analysis, morpher);
+            Assert.AreEqual(3, morphemes.Count);
+            Assert.AreEqual("ajar1.1", morphemes.ElementAt(0).Gloss);
+            Assert.AreEqual("v", creator.category);
+            Assert.AreEqual("LOC", morphemes.ElementAt(1).Gloss);
+            Assert.AreEqual("APPL", morphemes.ElementAt(2).Gloss);
+            Assert.AreEqual(0, creator.RootIndex);
+
+            analysis = "^<NMLZR><AV>karang1.1<v><LOC>$";
+            morphemes = creator.ExtractMorphemes(analysis, morpher);
+            Assert.AreEqual(4, morphemes.Count);
+            Assert.AreEqual("AV", morphemes.ElementAt(0).Gloss);
+            Assert.AreEqual("NMLZR", morphemes.ElementAt(1).Gloss);
+            Assert.AreEqual("karang1.1", morphemes.ElementAt(2).Gloss);
+            Assert.AreEqual("v", creator.category);
+            Assert.AreEqual("LOC", morphemes.ElementAt(3).Gloss);
+            Assert.AreEqual(2, creator.RootIndex);
         }
 
         [Test]
@@ -70,7 +91,7 @@ namespace SIL.HCSynthByGlossTest
             Assert.AreEqual("", synthesizedWordForms);
 
             glosses = File.ReadAllText(glossFile, Encoding.UTF8);
-            Assert.AreEqual(1251, glosses.Length);
+            Assert.AreEqual(1310, glosses.Length);
             synthesizedWordForms = synthesizer.SynthesizeGlosses(glosses, morpher);
             string expectedWordForms = File.ReadAllText(expectedWordFormsFile, Encoding.UTF8).Replace("\r", "");
             Assert.AreEqual(expectedWordForms, synthesizedWordForms);

@@ -19,6 +19,7 @@ namespace SIL.HCSynthByGloss
         const char closingWedge = '>';
         const char openingWedge = '<';
         public List<string> Forms { get; } = new List<string>();
+        public int RootIndex { get; set; } = -1;
 
         public static AnalysesCreator Instance
         {
@@ -34,6 +35,8 @@ namespace SIL.HCSynthByGloss
             instance.Forms.Clear();
             var state = State.BEGIN;
             int index = 0;
+            int morphIndex = 0;
+            RootIndex = -1;
             while (index < analysis.Length)
             {
                 switch (state)
@@ -46,6 +49,7 @@ namespace SIL.HCSynthByGloss
                             state = State.ROOT;
                         break;
                     case State.PREFIX:
+                        morphIndex++;
                         index = AddMorph(analysis, srcMorpher, morphemes, ++index, closingWedge);
                         if (analysis[index] == openingWedge)
                             state = State.PREFIX;
@@ -53,6 +57,13 @@ namespace SIL.HCSynthByGloss
                             state = State.ROOT;
                         break;
                     case State.ROOT:
+                        if (RootIndex == -1)
+                        {
+                            RootIndex = morphIndex;
+                            // we need the prefixes to be synthesized in the reverse order
+                            morphemes.Reverse();
+                        }
+                        morphIndex++;
                         index = AddMorph(analysis, srcMorpher, morphemes, index, openingWedge);
                         state = State.CATEGORY;
                         break;
@@ -66,6 +77,7 @@ namespace SIL.HCSynthByGloss
                             state = State.END;
                         break;
                     case State.SUFFIX:
+                        morphIndex++;
                         index = AddMorph(analysis, srcMorpher, morphemes, ++index, closingWedge);
                         if (analysis[index] == openingWedge)
                             state = State.SUFFIX;
@@ -74,6 +86,11 @@ namespace SIL.HCSynthByGloss
                         break;
                     case State.END:
                         index = analysis.Length;
+                        // we need the suffixes to be synthesized in the reverse order
+                        if (morphemes.Count > RootIndex + 1)
+                        {
+                            morphemes.Reverse(RootIndex + 1, morphemes.Count - (RootIndex + 1));
+                        }
                         break;
                 }
             }

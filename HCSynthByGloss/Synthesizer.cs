@@ -59,7 +59,7 @@ namespace SIL.HCSynthByGloss
                 }
                 else
                 {
-                    WordAnalysis wordAnalysis = new WordAnalysis(morphemes, 1, analysesCreator.category);
+                    WordAnalysis wordAnalysis = new WordAnalysis(morphemes, analysesCreator.RootIndex, analysesCreator.category);
                     var newSyntheses = morpher.GenerateWords(wordAnalysis);
                     string result = formatter.Format(newSyntheses, analysis);
                     sb.Append(result);

@@ -1,6 +1,6 @@
 ﻿mengajar
-%2%mengamat-mengamati%mengamat-amati%
 %2%mengamati-mengamati%mengamati-amati%
+%2%mengamat-mengamati%mengamat-amati%
 mengambil
 membaca
 %2%membagi-membagi%membagi-bagi%
@@ -56,3 +56,5 @@ menziarahi
 %0%^<AV>yakin1.1<v><CAUSiXyz>$% One or more glosses not found:  AV  yakin1.1 (CAUSiXyz missing)
 %0%^<AVxyz>yakinxyz1.1<v><CAUSi>$% One or more glosses not found: (AVxyz missing)(yakinxyz1.1 missing) CAUSi 
 mewakili menulis
+karang-karangi
+kemengarangian
