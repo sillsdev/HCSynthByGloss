@@ -2228,9 +2228,13 @@ namespace SIL.FieldWorks.WordWorks.Parser
 			return shape;
 		}
 
-		private static string FormatForm(string formStr)
+		private string FormatForm(string formStr)
 		{
-			return formStr.Trim().Replace(' ', '.');
+            var code = m_cache.LangProject.DefaultVernacularWritingSystem.LanguageTag;
+            var ci = CultureInfo.GetCultureInfo(code);
+            var formatted = formStr.Trim().Replace(' ', '.');
+            string lowered = (ci != null) ? formatted.ToLower(ci) : formatted.ToLower();
+            return lowered;
 		}
 
 		private IEnumerable<FeatureSymbol> LoadAllPartsOfSpeech(IPartOfSpeech pos)
