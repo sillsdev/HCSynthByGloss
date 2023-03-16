@@ -591,7 +591,7 @@ namespace SIL.FieldWorks.WordWorks.Parser
 
 		private RootAllomorph LoadRootAllomorph(IMoStemAllomorph allo, IMoMorphSynAnalysis msa)
 		{
-			string form = FormatForm(allo.Form.VernacularDefaultWritingSystem.Text);
+			string form = FormatRootForm(allo.Form.VernacularDefaultWritingSystem.Text);
 			Shape shape = Segment(form);
 			var hcAllo = new RootAllomorph(new Segments(m_table, form, shape));
 
@@ -2228,7 +2228,7 @@ namespace SIL.FieldWorks.WordWorks.Parser
 			return shape;
 		}
 
-		private string FormatForm(string formStr)
+		private string FormatRootForm(string formStr)
 		{
             var code = m_cache.LangProject.DefaultVernacularWritingSystem.LanguageTag;
             var ci = CultureInfo.GetCultureInfo(code);
@@ -2237,7 +2237,12 @@ namespace SIL.FieldWorks.WordWorks.Parser
             return lowered;
 		}
 
-		private IEnumerable<FeatureSymbol> LoadAllPartsOfSpeech(IPartOfSpeech pos)
+        private static string FormatForm(string formStr)
+        {
+            return formStr.Trim().Replace(' ', '.');
+        }
+
+        private IEnumerable<FeatureSymbol> LoadAllPartsOfSpeech(IPartOfSpeech pos)
 		{
 			return LoadAllPartsOfSpeech(pos.ToEnumerable());
 		}
