@@ -25,6 +25,7 @@ namespace SIL.FieldWorks.WordWorks.Parser
 {
     // This is basically the same as HCLoader from LexText.ParserCore
     // We redid the GetGloss method to use Apertium-style "glosses"
+    // Also we force root forms to be lower case
 	public class HCLoaderForFLExTrans
 	{
 		public static Language Load(SpanFactory<ShapeNode> spanFactory, LcmCache cache, IHCLoadErrorLogger logger)
