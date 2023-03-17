@@ -65,14 +65,14 @@ namespace SIL.HCSynthByGloss
                     sb.Append(result);
                 }
                 int lastIndexEnd = indexEnd;
-                indexCaret = AppendWhiteSpace(glosses, sb, lastIndexEnd);
+                indexCaret = AppendBetweenWordsContent(glosses, sb, lastIndexEnd);
                 indexBeg = indexCaret + lastIndexEnd;
                 indexEnd = glosses.Substring(lastIndexEnd + 1).IndexOf("$") + lastIndexEnd + 1;
             }
             return sb.ToString();
         }
 
-        private static int AppendWhiteSpace(string glosses, StringBuilder sb, int lastIndexEnd)
+        private static int AppendBetweenWordsContent(string glosses, StringBuilder sb, int lastIndexEnd)
         {
             int indexWhiteSpace = lastIndexEnd + 1;
             int indexCaret = glosses.Substring(lastIndexEnd).IndexOf("^");
@@ -80,7 +80,7 @@ namespace SIL.HCSynthByGloss
             {
                 string afterDollar = glosses.Substring(indexWhiteSpace, (lastIndexEnd + indexCaret) - indexWhiteSpace);
                 if (indexWhiteSpace < glosses.Length && !afterDollar.Contains("\n"))
-                    sb.Append(" ");
+                    sb.Append(",");
                 else
                     sb.Append("\n");
             }
