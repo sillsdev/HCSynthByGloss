@@ -80,6 +80,22 @@ namespace SIL.HCSynthByGlossTest
             Assert.AreEqual("v", creator.category);
             Assert.AreEqual("LOC", morphemes.ElementAt(3).Gloss);
             Assert.AreEqual(2, creator.RootIndex);
+
+            // NFD case
+            analysis = "^aja´r1.2<v>$";
+            morphemes = creator.ExtractMorphemes(analysis, morpher);
+            Assert.AreEqual(1, morphemes.Count);
+            Assert.AreEqual("aja´r1.2", morphemes.ElementAt(0).Gloss);
+            Assert.AreEqual("v", creator.category);
+            Assert.AreEqual(0, creator.RootIndex);
+
+            // NFC case
+            analysis = "^ajár1.3<v>$";
+            morphemes = creator.ExtractMorphemes(analysis, morpher);
+            Assert.AreEqual(1, morphemes.Count);
+            Assert.AreEqual("ajár1.3", morphemes.ElementAt(0).Gloss);
+            Assert.AreEqual("v", creator.category);
+            Assert.AreEqual(0, creator.RootIndex);
         }
 
         [Test]

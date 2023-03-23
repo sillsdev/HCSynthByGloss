@@ -1886,6 +1886,34 @@
               <Property name="ID">6858</Property>
             </Properties>
           </LexicalEntry>
+          <LexicalEntry id="entry25a" partOfSpeech="pos2006">
+            <Allomorphs>
+              <Allomorph id="allo25a">
+                <PhoneticShape>ajar</PhoneticShape>
+                <Properties>
+                  <Property name="ID">31761</Property>
+                </Properties>
+              </Allomorph>
+            </Allomorphs>
+            <Gloss>aja´r1.2</Gloss>
+            <Properties>
+              <Property name="ID">68581</Property>
+            </Properties>
+          </LexicalEntry>
+          <LexicalEntry id="entry25b" partOfSpeech="pos2006">
+            <Allomorphs>
+              <Allomorph id="allo25b">
+                <PhoneticShape>ajar</PhoneticShape>
+                <Properties>
+                  <Property name="ID">31762</Property>
+                </Properties>
+              </Allomorph>
+            </Allomorphs>
+            <Gloss>ajár1.3</Gloss>
+            <Properties>
+              <Property name="ID">68582</Property>
+            </Properties>
+          </LexicalEntry>
           <LexicalEntry id="entry26" partOfSpeech="pos14896">
             <Allomorphs>
               <Allomorph id="allo26">
