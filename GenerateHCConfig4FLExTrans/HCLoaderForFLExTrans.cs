@@ -25,7 +25,7 @@ namespace SIL.FieldWorks.WordWorks.Parser
 {
     // This is basically the same as HCLoader from LexText.ParserCore
     // We redid the GetGloss method to use Apertium-style "glosses"
-    // Also we force root forms to be lower case
+    // Also we force root forms and root glosses to be lower case
 	public class HCLoaderForFLExTrans
 	{
 		public static Language Load(SpanFactory<ShapeNode> spanFactory, LcmCache cache, IHCLoadErrorLogger logger)
@@ -700,7 +700,8 @@ namespace SIL.FieldWorks.WordWorks.Parser
                 if (entry != null)
                 {
                     StringBuilder sb = new StringBuilder();
-                    sb.Append(entry.HeadWord.Text);
+                    string lowered = LowerString(entry.HeadWord.Text, m_cache.LangProject.DefaultAnalysisWritingSystem.LanguageTag);
+                    sb.Append(lowered);
                     int homograph = Math.Max(1, entry.HomographNumber);
                     sb.Append(homograph);
                     sb.Append(".");
@@ -712,7 +713,14 @@ namespace SIL.FieldWorks.WordWorks.Parser
             return result;
 		}
 
-		private void AddMorphologicalRule(Stratum stratum, AffixProcessRule rule, IMoMorphSynAnalysis msa)
+        private string LowerString(string item, string code)
+        {
+            var ci = CultureInfo.GetCultureInfo(code);
+            string lowered = (ci != null) ? item.ToLower(ci) : item.ToLower();
+            return lowered;
+        }
+
+        private void AddMorphologicalRule(Stratum stratum, AffixProcessRule rule, IMoMorphSynAnalysis msa)
 		{
 			if (rule.Allomorphs.Count > 0)
 			{
@@ -2231,10 +2239,8 @@ namespace SIL.FieldWorks.WordWorks.Parser
 
 		private string FormatRootForm(string formStr)
 		{
-            var code = m_cache.LangProject.DefaultVernacularWritingSystem.LanguageTag;
-            var ci = CultureInfo.GetCultureInfo(code);
             var formatted = formStr.Trim().Replace(' ', '.');
-            string lowered = (ci != null) ? formatted.ToLower(ci) : formatted.ToLower();
+            string lowered = LowerString(formatted, m_cache.LangProject.DefaultVernacularWritingSystem.LanguageTag);
             return lowered;
 		}
 

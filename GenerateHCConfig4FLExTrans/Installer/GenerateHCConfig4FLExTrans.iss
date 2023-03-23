@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Generate Hermit Crab configuration file for use with FLExTrans"
-#define MyAppVersion "1.1.1 Beta"
+#define MyAppVersion "1.2.0 Beta"
 #define MyAppPublisher "SIL Iternational"
 #define MyAppURL "https://software.sil.org/"
 #define MyAppExeName "GenerateHCConfigForFLExTrans.exe"
@@ -19,7 +19,7 @@ AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
-DefaultDirName={pf64}\SIL\GenerateHCConfig4FLExTrans
+DefaultDirName={pf64}\SIL\FieldWorks 9
 DefaultGroupName=GenerateHCConfigForFLExTrans
 OutputBaseFilename=GenerateHCConfigForFLExTrans
 ;SetupIconFile=..\AllomorphGeneratorDll\LT.ico
@@ -36,55 +36,55 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 [Files]
 Source: "..\bin\x64\Release\GenerateHCConfigForFLExTrans.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\bin\x64\Release\GenerateHCConfigForFLExTrans.pdb"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x64\Release\icu.net.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x64\Release\Microsoft.Extensions.DependencyModel.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x64\Release\SIL.Collections.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x64\Release\SIL.Machine.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x64\Release\FwUtils.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x64\Release\FwUtils.pdb"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x64\Release\SIL.HermitCrab.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x64\Release\SIL.Core.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x64\Release\SIL.Core.pdb"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x64\Release\SIL.LCModel.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x64\Release\SIL.LCModel.pdb"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x64\Release\SIL.LCModel.Core.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x64\Release\SIL.LCModel.Core.pdb"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x64\Release\SIL.LCModel.Utils.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x64\Release\SIL.LCModel.Utils.pdb"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x64\Release\SIL.WritingSystems.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x64\Release\SIL.WritingSystems.pdb"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x64\Release\CommonServiceLocator.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x64\Release\DesktopAnalytics.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x64\Release\DialogAdapters.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x64\Release\DotNetZip.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x64\Release\Enchant.Net.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x64\Release\FwResources.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x64\Release\ICSharpCode.SharpZipLib.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x64\Release\IPCFramework.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x64\Release\L10NSharp.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x64\Release\NAudio.dll"; DestDir: "{app}"; Flags: ignoreversion 
-Source: "..\bin\x64\Release\NAudio.Lame.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x64\Release\NDesk.DBus.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x64\Release\netstandard.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x64\Release\Newtonsoft.Json.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x64\Release\NHunspell.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x64\Release\protobuf-net.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x64\Release\QuickGraph.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x64\Release\SIL.Archiving.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x64\Release\SIL.Core.Desktop.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x64\Release\SIL.LCModel.Tools.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x64\Release\SIL.Lexicon.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x64\Release\SIL.Windows.Forms.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x64\Release\Spart.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x64\Release\StructureMap.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x64\Release\System.ValueTuple.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x64\Release\TagLibSharp.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x64\Release\ViewsInterfaces.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x64\Release\FwUtils.dll.config"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\bin\x64\Release\GenerateHCConfigForFLExTrans.exe.config"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x64\Release\NDesk.DBus.dll.config"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x64\Release\SIL.LCModel.Core.dll.config"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x64\Release\SIL.LCModel.dll.config"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\bin\x64\Release\icu.net.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\bin\x64\Release\Microsoft.Extensions.DependencyModel.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\bin\x64\Release\SIL.Collections.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\bin\x64\Release\SIL.Machine.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\bin\x64\Release\FwUtils.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\bin\x64\Release\FwUtils.pdb"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\bin\x64\Release\SIL.HermitCrab.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\bin\x64\Release\SIL.Core.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\bin\x64\Release\SIL.Core.pdb"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\bin\x64\Release\SIL.LCModel.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\bin\x64\Release\SIL.LCModel.pdb"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\bin\x64\Release\SIL.LCModel.Core.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\bin\x64\Release\SIL.LCModel.Core.pdb"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\bin\x64\Release\SIL.LCModel.Utils.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\bin\x64\Release\SIL.LCModel.Utils.pdb"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\bin\x64\Release\SIL.WritingSystems.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\bin\x64\Release\SIL.WritingSystems.pdb"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\bin\x64\Release\CommonServiceLocator.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\bin\x64\Release\DesktopAnalytics.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\bin\x64\Release\DialogAdapters.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\bin\x64\Release\DotNetZip.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\bin\x64\Release\Enchant.Net.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\bin\x64\Release\FwResources.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\bin\x64\Release\ICSharpCode.SharpZipLib.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\bin\x64\Release\IPCFramework.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\bin\x64\Release\L10NSharp.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\bin\x64\Release\NAudio.dll"; DestDir: "{app}"; Flags: ignoreversion 
+;Source: "..\bin\x64\Release\NAudio.Lame.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\bin\x64\Release\NDesk.DBus.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\bin\x64\Release\netstandard.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\bin\x64\Release\Newtonsoft.Json.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\bin\x64\Release\NHunspell.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\bin\x64\Release\protobuf-net.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\bin\x64\Release\QuickGraph.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\bin\x64\Release\SIL.Archiving.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\bin\x64\Release\SIL.Core.Desktop.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\bin\x64\Release\SIL.LCModel.Tools.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\bin\x64\Release\SIL.Lexicon.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\bin\x64\Release\SIL.Windows.Forms.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\bin\x64\Release\Spart.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\bin\x64\Release\StructureMap.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\bin\x64\Release\System.ValueTuple.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\bin\x64\Release\TagLibSharp.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\bin\x64\Release\ViewsInterfaces.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\bin\x64\Release\FwUtils.dll.config"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\bin\x64\Release\NDesk.DBus.dll.config"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\bin\x64\Release\SIL.LCModel.Core.dll.config"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\bin\x64\Release\SIL.LCModel.dll.config"; DestDir: "{app}"; Flags: ignoreversion
 
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
