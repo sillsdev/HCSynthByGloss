@@ -483,7 +483,7 @@ namespace SIL.FieldWorks.WordWorks.Parser
 			foreach (ICmPossibility prodRestrict in msa.ProdRestrictRC)
 				hcEntry.MprFeatures.Add(m_mprFeatures[prodRestrict]);
 
-			hcEntry.Gloss = GetGloss(msa);
+			hcEntry.Gloss = GetGloss(msa, false);
 
 			var fs = new FeatureStruct();
 			if (msa.PartOfSpeechRA != null)
@@ -536,13 +536,14 @@ namespace SIL.FieldWorks.WordWorks.Parser
 				if (prepend != "***")
 					glossSB.Append(prepend);
 			}
-			glossSB.Append(GetGloss(msa));
+			glossSB.Append(GetGloss(msa, false));
 			if (inflType != null)
 			{
 				string append = inflType.GlossAppend.BestAnalysisAlternative.Text;
 				if (append != "***")
 					glossSB.Append(append);
 			}
+            glossSB.Append("_variant_");
 			hcEntry.Gloss = glossSB.ToString();
 
 			var fs = new FeatureStruct();
@@ -661,6 +662,7 @@ namespace SIL.FieldWorks.WordWorks.Parser
 		{
 			AffixProcessRule mrule = null;
 			Stratum s = stratum;
+            bool isCliticAffix = false;
 			switch (msa.ClassID)
 			{
 				case MoDerivAffMsaTags.kClassId:
@@ -680,21 +682,22 @@ namespace SIL.FieldWorks.WordWorks.Parser
 
 				case MoStemMsaTags.kClassId:
 					mrule = LoadCliticAffixProcessRule(entry, (IMoStemMsa) msa, allos);
+                    isCliticAffix = true;
 					break;
 			}
 
 			if (mrule != null)
 			{
-				mrule.Gloss = GetGloss(msa);
+				mrule.Gloss = GetGloss(msa, isCliticAffix);
 				AddMorphologicalRule(s, mrule, msa);
 			}
 		}
 
-		private string GetGloss(IMoMorphSynAnalysis msa)
+		private string GetGloss(IMoMorphSynAnalysis msa, bool isCliticAffix)
 		{
 			ILexSense sense = msa.OwnerOfClass<ILexEntry>().SenseWithMsa(msa);
             string result = sense == null ? null : sense.Gloss.BestAnalysisAlternative.Text;
-            if (msa is IMoStemMsa && sense != null)
+            if (msa is IMoStemMsa && sense != null && !isCliticAffix)
             {
                 ILexEntry entry = sense.Entry;
                 if (entry != null)
