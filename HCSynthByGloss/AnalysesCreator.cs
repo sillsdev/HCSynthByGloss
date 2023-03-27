@@ -104,7 +104,7 @@ namespace SIL.HCSynthByGloss
             // Note: for testing we ignore the morpher.
             if (srcMorpher != null)
             {
-                IMorpheme morph = srcMorpher.Morphemes.FirstOrDefault(m => m.Gloss.Normalize(NormalizationForm.FormD) == shape.Normalize(NormalizationForm.FormD));
+                IMorpheme morph = srcMorpher.Morphemes.FirstOrDefault(m => m.Gloss != null && m.Gloss.Normalize(NormalizationForm.FormD) == shape.Normalize(NormalizationForm.FormD));
                 morphemes.Add(morph);
             }
             else
