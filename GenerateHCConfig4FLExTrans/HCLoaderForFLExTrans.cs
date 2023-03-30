@@ -423,12 +423,12 @@ namespace SIL.FieldWorks.WordWorks.Parser
 							if (mainEntry != null)
 							{
 								foreach (IMoStemMsa msa in mainEntry.MorphoSyntaxAnalysesOC.OfType<IMoStemMsa>())
-									LoadLexEntryOfVariant(stratum, inflType, msa, allos);
+									LoadLexEntryOfVariant(stratum, inflType, entry, msa, allos);
 							}
 							else
 							{
 								ILexSense sense = (ILexSense) component;
-								LoadLexEntryOfVariant(stratum, inflType, (IMoStemMsa) sense.MorphoSyntaxAnalysisRA, allos);
+								LoadLexEntryOfVariant(stratum, inflType, entry, (IMoStemMsa) sense.MorphoSyntaxAnalysisRA, allos);
 							}
 						}
 					}
@@ -514,7 +514,7 @@ namespace SIL.FieldWorks.WordWorks.Parser
 			AddEntry(stratum, hcEntry, msa);
 		}
 
-		private void LoadLexEntryOfVariant(Stratum stratum, ILexEntryInflType inflType, IMoStemMsa msa, IList<IMoStemAllomorph> allos)
+		private void LoadLexEntryOfVariant(Stratum stratum, ILexEntryInflType inflType, ILexEntry entry, IMoStemMsa msa, IList<IMoStemAllomorph> allos)
 		{
 			var hcEntry = new LexEntry();
 
@@ -530,19 +530,21 @@ namespace SIL.FieldWorks.WordWorks.Parser
 				hcEntry.MprFeatures.Add(m_mprFeatures[inflType]);
 
 			var glossSB = new StringBuilder();
-			if (inflType != null)
-			{
-				string prepend = inflType.GlossPrepend.BestAnalysisAlternative.Text;
-				if (prepend != "***")
-					glossSB.Append(prepend);
-			}
-			glossSB.Append(GetGloss(msa, false));
-			if (inflType != null)
-			{
-				string append = inflType.GlossAppend.BestAnalysisAlternative.Text;
-				if (append != "***")
-					glossSB.Append(append);
-			}
+            // we ignore any prepend material
+            //if (inflType != null)
+            //{
+            //	string prepend = inflType.GlossPrepend.BestAnalysisAlternative.Text;
+            //	if (prepend != "***")
+            //		glossSB.Append(prepend);
+            //}
+            glossSB.Append(GetGlossOfVariant(entry));
+            // we ignore any append material
+			//if (inflType != null)
+			//{
+			//	string append = inflType.GlossAppend.BestAnalysisAlternative.Text;
+			//	if (append != "***")
+			//		glossSB.Append(append);
+			//}
             glossSB.Append("_variant_");
 			hcEntry.Gloss = glossSB.ToString();
 
@@ -591,7 +593,22 @@ namespace SIL.FieldWorks.WordWorks.Parser
 			AddEntry(stratum, hcEntry, msa);
 		}
 
-		private RootAllomorph LoadRootAllomorph(IMoStemAllomorph allo, IMoMorphSynAnalysis msa)
+        private string GetGlossOfVariant(ILexEntry entry)
+        {
+            StringBuilder sb = new StringBuilder();
+            string result = "";
+            if (entry != null)
+            {
+                string lowered = LowerString(entry.HeadWord.Text, m_cache.LangProject.DefaultAnalysisWritingSystem.LanguageTag);
+                sb.Append(lowered);
+                int homograph = Math.Max(1, entry.HomographNumber);
+                sb.Append(homograph);
+                result = sb.ToString();
+            }
+            return result;
+;        }
+
+        private RootAllomorph LoadRootAllomorph(IMoStemAllomorph allo, IMoMorphSynAnalysis msa)
 		{
 			string form = FormatRootForm(allo.Form.VernacularDefaultWritingSystem.Text);
 			Shape shape = Segment(form);
