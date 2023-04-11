@@ -601,8 +601,11 @@ namespace SIL.FieldWorks.WordWorks.Parser
             {
                 string lowered = LowerString(entry.HeadWord.Text, m_cache.LangProject.DefaultAnalysisWritingSystem.LanguageTag);
                 sb.Append(lowered);
-                int homograph = Math.Max(1, entry.HomographNumber);
-                sb.Append(homograph);
+				int homograph = entry.HomographNumber;
+				if (homograph == 0)
+				{
+					sb.Append("1");
+				}
                 result = sb.ToString();
             }
             return result;
@@ -722,8 +725,11 @@ namespace SIL.FieldWorks.WordWorks.Parser
                     StringBuilder sb = new StringBuilder();
                     string lowered = LowerString(entry.HeadWord.Text, m_cache.LangProject.DefaultAnalysisWritingSystem.LanguageTag);
                     sb.Append(lowered);
-                    int homograph = Math.Max(1, entry.HomographNumber);
-                    sb.Append(homograph);
+					int homograph = entry.HomographNumber;
+					if (homograph == 0)
+					{
+						sb.Append("1");
+					}
                     sb.Append(".");
                     int index = entry.SensesOS.IndexOf(sense);
                     sb.Append(index + 1);
