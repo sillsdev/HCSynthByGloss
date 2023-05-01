@@ -60,14 +60,16 @@
     <Reference Include="FwUtils">
       <HintPath>..\..\..\..\..\..\..\fwrepo\fw\Output\Debug\FwUtils.dll</HintPath>
     </Reference>
+    <Reference Include="icu.net, Version=2.9.0.0, Culture=neutral, PublicKeyToken=416fdd914afa6b66, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\fwrepo\fw\Output\Debug\icu.net.dll</HintPath>
+    </Reference>
     <Reference Include="SIL.Archiving">
       <HintPath>..\..\..\..\..\..\..\fwrepo\fw\Output\Debug\SIL.Archiving.dll</HintPath>
     </Reference>
-    <Reference Include="SIL.Collections">
-      <HintPath>..\..\..\..\..\..\..\fwrepo\fw\Output\Debug\SIL.Collections.dll</HintPath>
-    </Reference>
-    <Reference Include="SIL.HermitCrab">
-      <HintPath>..\..\..\..\..\..\..\fwrepo\fw\Output\Debug\SIL.HermitCrab.dll</HintPath>
+    <Reference Include="SIL.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=cab3c8c5232dfcf2, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\fwrepo\fw\Output\Debug\SIL.Core.dll</HintPath>
     </Reference>
     <Reference Include="SIL.LCModel">
       <HintPath>..\..\..\..\..\..\..\fwrepo\fw\Output\Debug\SIL.LCModel.dll</HintPath>
@@ -78,8 +80,12 @@
     <Reference Include="SIL.LCModel.Utils">
       <HintPath>..\..\..\..\..\..\..\fwrepo\fw\Output\Debug\SIL.LCModel.Utils.dll</HintPath>
     </Reference>
-    <Reference Include="SIL.Machine">
+    <Reference Include="SIL.Machine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cab3c8c5232dfcf2, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\fwrepo\fw\Output\Debug\SIL.Machine.dll</HintPath>
+    </Reference>
+    <Reference Include="SIL.Machine.Morphology.HermitCrab">
+      <HintPath>..\..\..\..\..\..\..\fwrepo\fw\Output\Debug\SIL.Machine.Morphology.HermitCrab.dll</HintPath>
     </Reference>
     <Reference Include="SIL.WritingSystems">
       <HintPath>..\..\..\..\..\..\..\fwrepo\fw\Output\Debug\SIL.WritingSystems.dll</HintPath>

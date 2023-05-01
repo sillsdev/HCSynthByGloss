@@ -6,10 +6,10 @@ using System;
 using System.IO;
 using SIL.FieldWorks.Common.FwUtils;
 using SIL.FieldWorks.WordWorks.Parser;
-using SIL.HermitCrab;
 using SIL.LCModel;
 using SIL.LCModel.Utils;
 using SIL.Machine.Annotations;
+using SIL.Machine.Morphology.HermitCrab;
 using SIL.WritingSystems;
 
 namespace SIL.GenerateHCConfigForFLExTrans
@@ -38,7 +38,6 @@ namespace SIL.GenerateHCConfigForFLExTrans
             FwUtils.InitializeIcu();
             Sldr.Initialize();
             var synchronizeInvoke = new SingleThreadedSynchronizeInvoke();
-            var spanFactory = new ShapeSpanFactory();
 
             var projectId = new ProjectIdentifier(flexDB);
             var logger = new ConsoleLogger(synchronizeInvoke);
@@ -50,7 +49,7 @@ namespace SIL.GenerateHCConfigForFLExTrans
             {
                 using (LcmCache cache = LcmCache.CreateCacheFromExistingData(projectId, "en", logger, dirs, settings, progress))
                 {
-                    Language language = HCLoaderForFLExTrans.Load(spanFactory, cache, logger);
+                    Language language = HCLoaderForFLExTrans.Load(cache, logger);
                     Console.WriteLine("Loading completed.");
                     Console.WriteLine("Writing HC configuration file...");
                     XmlLanguageWriter.Save(language, hcXML);
