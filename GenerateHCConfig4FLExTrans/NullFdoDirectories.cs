@@ -2,10 +2,10 @@
 
 namespace SIL.GenerateHCConfigForFLExTrans
 {
-	internal class NullFdoDirectories : ILcmDirectories
-	{
-		public string ProjectsDirectory => null;
+    internal class NullFdoDirectories : ILcmDirectories
+    {
+        public string ProjectsDirectory => null;
 
-		public string TemplateDirectory => null;
-	}
+        public string TemplateDirectory => null;
+    }
 }

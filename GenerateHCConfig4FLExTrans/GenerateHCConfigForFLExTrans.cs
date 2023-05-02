@@ -14,9 +14,9 @@ using SIL.WritingSystems;
 
 namespace SIL.GenerateHCConfigForFLExTrans
 {
-	public class GenerateHCConfigForFLExTrans
-	{
-		static int Main(string[] args)
+    public class GenerateHCConfigForFLExTrans
+    {
+        static int Main(string[] args)
         {
             if (args.Length < 2)
             {
@@ -47,7 +47,16 @@ namespace SIL.GenerateHCConfigForFLExTrans
             Console.WriteLine("Loading FieldWorks project...");
             try
             {
-                using (LcmCache cache = LcmCache.CreateCacheFromExistingData(projectId, "en", logger, dirs, settings, progress))
+                using (
+                    LcmCache cache = LcmCache.CreateCacheFromExistingData(
+                        projectId,
+                        "en",
+                        logger,
+                        dirs,
+                        settings,
+                        progress
+                    )
+                )
                 {
                     Language language = HCLoaderForFLExTrans.Load(cache, logger);
                     Console.WriteLine("Loading completed.");
@@ -60,27 +69,35 @@ namespace SIL.GenerateHCConfigForFLExTrans
             catch (LcmFileLockedException)
             {
                 Console.WriteLine("Loading failed.");
-                Console.WriteLine("The FieldWorks project is currently open in another application.");
+                Console.WriteLine(
+                    "The FieldWorks project is currently open in another application."
+                );
                 Console.WriteLine("Close the application and try to run this command again.");
                 return 2;
             }
             catch (LcmDataMigrationForbiddenException)
             {
                 Console.WriteLine("Loading failed.");
-                Console.WriteLine("The FieldWorks project was created with an older version of FLEx.");
-                Console.WriteLine("Migrate the project to the latest version by opening it in FLEx.");
+                Console.WriteLine(
+                    "The FieldWorks project was created with an older version of FLEx."
+                );
+                Console.WriteLine(
+                    "Migrate the project to the latest version by opening it in FLEx."
+                );
                 return 3;
             }
         }
 
         private static void WriteHelp()
-		{
-			Console.WriteLine("Generates a HermitCrab configuration file from a FieldWorks project, suitable for using HermitCrab synthesis with FLExTrans.");
-			Console.WriteLine();
-			Console.WriteLine("generatehcconfig <input-project> <output-config>");
-			Console.WriteLine();
-			Console.WriteLine("  <input-project>  Specifies the FieldWorks project path.");
-			Console.WriteLine("  <output-config>  Specifies the HC configuration path.");
-		}
-	}
+        {
+            Console.WriteLine(
+                "Generates a HermitCrab configuration file from a FieldWorks project, suitable for using HermitCrab synthesis with FLExTrans."
+            );
+            Console.WriteLine();
+            Console.WriteLine("generatehcconfig <input-project> <output-config>");
+            Console.WriteLine();
+            Console.WriteLine("  <input-project>  Specifies the FieldWorks project path.");
+            Console.WriteLine("  <output-config>  Specifies the HC configuration path.");
+        }
+    }
 }

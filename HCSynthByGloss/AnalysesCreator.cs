@@ -23,10 +23,7 @@ namespace SIL.HCSynthByGloss
 
         public static AnalysesCreator Instance
         {
-            get
-            {
-                return instance;
-            }
+            get { return instance; }
         }
 
         public List<IMorpheme> ExtractMorphemes(string analysis, Morpher srcMorpher)
@@ -97,14 +94,25 @@ namespace SIL.HCSynthByGloss
             return morphemes;
         }
 
-        private static int AddMorph(string analysis, Morpher srcMorpher, List<IMorpheme> morphemes, int index, char endMarker)
+        private static int AddMorph(
+            string analysis,
+            Morpher srcMorpher,
+            List<IMorpheme> morphemes,
+            int index,
+            char endMarker
+        )
         {
             int indexEnd = analysis.Substring(index).IndexOf(endMarker) + index;
             string shape = analysis.Substring(index, indexEnd - index);
             // Note: for testing we ignore the morpher.
             if (srcMorpher != null)
             {
-                IMorpheme morph = srcMorpher.Morphemes.FirstOrDefault(m => m.Gloss != null && m.Gloss.Normalize(NormalizationForm.FormD) == shape.Normalize(NormalizationForm.FormD));
+                IMorpheme morph = srcMorpher.Morphemes.FirstOrDefault(
+                    m =>
+                        m.Gloss != null
+                        && m.Gloss.Normalize(NormalizationForm.FormD)
+                            == shape.Normalize(NormalizationForm.FormD)
+                );
                 morphemes.Add(morph);
             }
             else
@@ -115,10 +123,8 @@ namespace SIL.HCSynthByGloss
             index = indexEnd + 1;
             return index;
         }
-
-
-
     }
+
     enum State
     {
         BEGIN,

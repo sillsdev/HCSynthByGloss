@@ -6,11 +6,9 @@ using System;
 
 namespace SIL.FieldWorks.WordWorks.Parser
 {
-	internal class InvalidReduplicationFormException : Exception
-	{
-		public InvalidReduplicationFormException(string message)
-			: base(message)
-		{
-		}
-	}
+    internal class InvalidReduplicationFormException : Exception
+    {
+        public InvalidReduplicationFormException(string message)
+            : base(message) { }
+    }
 }

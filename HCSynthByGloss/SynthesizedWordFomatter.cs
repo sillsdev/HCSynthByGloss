@@ -18,10 +18,7 @@ namespace SIL.HCSynthByGloss
 
         public static SynthesizedWordFomatter Instance
         {
-            get
-            {
-                return instance;
-            }
+            get { return instance; }
         }
 
         public string Format(IEnumerable<string> forms, string analysis)

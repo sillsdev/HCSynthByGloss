@@ -18,10 +18,7 @@ namespace SIL.HCSynthByGloss
 
         public static Synthesizer Instance
         {
-            get
-            {
-                return instance;
-            }
+            get { return instance; }
         }
 
         public string SynthesizeGlosses(string glosses, Morpher morpher)
@@ -59,7 +56,11 @@ namespace SIL.HCSynthByGloss
                 }
                 else
                 {
-                    WordAnalysis wordAnalysis = new WordAnalysis(morphemes, analysesCreator.RootIndex, analysesCreator.category);
+                    WordAnalysis wordAnalysis = new WordAnalysis(
+                        morphemes,
+                        analysesCreator.RootIndex,
+                        analysesCreator.category
+                    );
                     var newSyntheses = morpher.GenerateWords(wordAnalysis);
                     string result = formatter.Format(newSyntheses, analysis);
                     sb.Append(result);
@@ -72,13 +73,20 @@ namespace SIL.HCSynthByGloss
             return sb.ToString();
         }
 
-        private static int AppendBetweenWordsContent(string glosses, StringBuilder sb, int lastIndexEnd)
+        private static int AppendBetweenWordsContent(
+            string glosses,
+            StringBuilder sb,
+            int lastIndexEnd
+        )
         {
             int indexWhiteSpace = lastIndexEnd + 1;
             int indexCaret = glosses.Substring(lastIndexEnd).IndexOf("^");
             if (indexCaret != -1)
             {
-                string afterDollar = glosses.Substring(indexWhiteSpace, (lastIndexEnd + indexCaret) - indexWhiteSpace);
+                string afterDollar = glosses.Substring(
+                    indexWhiteSpace,
+                    (lastIndexEnd + indexCaret) - indexWhiteSpace
+                );
                 if (indexWhiteSpace < glosses.Length && !afterDollar.Contains("\n"))
                     sb.Append(",");
                 else

@@ -109,9 +109,9 @@ namespace SIL.HCSynthByGlossTest
             glosses = File.ReadAllText(glossFile, Encoding.UTF8);
             Assert.AreEqual(1310, glosses.Length);
             synthesizedWordForms = synthesizer.SynthesizeGlosses(glosses, morpher);
-            string expectedWordForms = File.ReadAllText(expectedWordFormsFile, Encoding.UTF8).Replace("\r", "");
+            string expectedWordForms = File.ReadAllText(expectedWordFormsFile, Encoding.UTF8)
+                .Replace("\r", "");
             Assert.AreEqual(expectedWordForms, synthesizedWordForms);
         }
-
     }
 }

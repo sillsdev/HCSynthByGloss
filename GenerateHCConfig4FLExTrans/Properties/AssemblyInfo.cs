@@ -8,7 +8,9 @@ using System.Reflection;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("GenerateHCConfigForFLExTrans")]
-[assembly: AssemblyDescription("This program extracts a Hermit Crab configuration file from a FLEx project.\r\nLexical glosses are in the form needed by FLExTrans.\r\nIt is compatible with FLEx database version 7000072 such as in version 9.1.12 Beta of FLEx.\r\n\r\nThis software is licensed under the LGPL, version 2.1 or later\r\n(http://www.gnu.org/licenses/lgpl-2.1.html)")]
+[assembly: AssemblyDescription(
+    "This program extracts a Hermit Crab configuration file from a FLEx project.\r\nLexical glosses are in the form needed by FLExTrans.\r\nIt is compatible with FLEx database version 7000072 such as in version 9.1.12 Beta of FLEx.\r\n\r\nThis software is licensed under the LGPL, version 2.1 or later\r\n(http://www.gnu.org/licenses/lgpl-2.1.html)"
+)]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("SIL International")]
 [assembly: AssemblyProduct("AllomorphGenerator")]
