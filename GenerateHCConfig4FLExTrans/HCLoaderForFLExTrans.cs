@@ -609,7 +609,7 @@ namespace SIL.FieldWorks.WordWorks.Parser
 				{
 					sb.Append("1");
 				}
-				result = sb.ToString();
+				result = sb.ToString().Normalize(NormalizationForm.FormD);
             }
             return result;
 ;        }
@@ -719,7 +719,7 @@ namespace SIL.FieldWorks.WordWorks.Parser
 		private string GetGloss(IMoMorphSynAnalysis msa, bool isCliticAffix)
 		{
 			ILexSense sense = msa.OwnerOfClass<ILexEntry>().SenseWithMsa(msa);
-            string result = sense == null ? null : sense.Gloss.BestAnalysisAlternative.Text;
+            string result = sense == null ? null : sense.Gloss.BestAnalysisAlternative.Text.Normalize(NormalizationForm.FormD);
             if (msa is IMoStemMsa && sense != null && !isCliticAffix)
             {
                 ILexEntry entry = sense.Entry;
@@ -736,7 +736,7 @@ namespace SIL.FieldWorks.WordWorks.Parser
 					sb.Append(".");
                     int index = entry.SensesOS.IndexOf(sense);
                     sb.Append(index + 1);
-                    result = sb.ToString();
+                    result = sb.ToString().Normalize(NormalizationForm.FormD);
                 }
             }
             return result;
