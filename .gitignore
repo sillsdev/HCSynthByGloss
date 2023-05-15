@@ -12,3 +12,5 @@ XLingPaperPDFTemp/
 UserDocumentation.css
 UserDocumentation.htm
 *.csproj.user
+GenerateHCConfig4FLExTransTest/
+results.txt

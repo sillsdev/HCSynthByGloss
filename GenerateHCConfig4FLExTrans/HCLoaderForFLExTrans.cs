@@ -697,6 +697,21 @@ namespace SIL.FieldWorks.WordWorks.Parser
             //	if (append != "***")
             //		glossSB.Append(append);
             //}
+            // we add the first sense number of this msa
+            int senseIndex = 1;
+            ILexEntry ownerEntry = msa.Owner as ILexEntry;
+            if (ownerEntry != null)
+            {
+                int index = ownerEntry.AllSenses.IndexOf(
+                    s => s.MorphoSyntaxAnalysisRA.Hvo == msa.Hvo
+                );
+                if (index != -1)
+                {
+                    senseIndex = index + 1;
+                }
+            }
+            glossSB.Append(".");
+            glossSB.Append(senseIndex);
             glossSB.Append("_variant_");
             hcEntry.Gloss = glossSB.ToString();
 
