@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Hermit Crab Synthesis for FLExTrans"
-#define MyAppVersion "1.3.1 Beta"
+#define MyAppVersion "1.3.2 Beta"
 #define MyAppPublisher "SIL Iternational"
 #define MyAppURL "https://software.sil.org/"
 #define MyAppExeName "HCSynthByGloss.exe"
@@ -35,12 +35,13 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Files]
 Source: "..\bin\x64\Release\HCSynthByGloss.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\bin\x64\Release\HCSynthByGloss.exe.config"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\bin\x64\Release\HCSynthByGloss.pdb"; DestDir: "{app}"; Flags: ignoreversion
 ;Source: "..\bin\x64\Release\Newtonsoft.Json.dll"; DestDir: "{app}"; Flags: ignoreversion
 ;Source: "..\bin\x64\Release\Newtonsoft.Json.xml"; DestDir: "{app}"; Flags: ignoreversion
 ;Source: "..\bin\x64\Release\SIL.Core.dll"; DestDir: "{app}"; Flags: ignoreversion
 ;Source: "..\bin\x64\Release\SIL.Machine.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x64\Release\SIL.Machine.Morphology.HermitCrab.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\bin\x64\Release\SIL.Machine.Morphology.HermitCrab.dll"; DestDir: "{app}"; Flags: ignoreversion
 ;Source: "..\bin\x64\Release\SIL.Scripture.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
