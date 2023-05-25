@@ -2,6 +2,7 @@
 // This software is licensed under the LGPL, version 2.1 or later
 // (http://www.gnu.org/licenses/lgpl-2.1.html)
 
+using SIL.Machine.FeatureModel;
 using SIL.Machine.Morphology;
 using SIL.Machine.Morphology.HermitCrab;
 using System;
@@ -9,19 +10,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace SIL.HCSynthByGloss
 {
     public class Synthesizer
     {
         private static readonly Synthesizer instance = new Synthesizer();
+        public object Trace { get; set; }
 
         public static Synthesizer Instance
         {
             get { return instance; }
         }
 
-        public string SynthesizeGlosses(string glosses, Morpher morpher)
+        public string SynthesizeGlosses(
+            string glosses,
+            Morpher morpher,
+            Language lang,
+            ISynTraceManager traceManager
+        )
         {
             StringBuilder sb = new StringBuilder();
             var analysesCreator = AnalysesCreator.Instance;
@@ -32,7 +40,7 @@ namespace SIL.HCSynthByGloss
             while (indexCaret >= 0 && indexBeg >= 0 && indexEnd >= 0)
             {
                 string analysis = glosses.Substring(indexBeg, (indexEnd - indexBeg) + 1);
-                List<IMorpheme> morphemes = analysesCreator.ExtractMorphemes(analysis, morpher);
+                List<Morpheme> morphemes = analysesCreator.ExtractMorphemes(analysis, morpher);
                 if (morphemes.Contains(null))
                 {
                     sb.Append(formatter.Format(new List<string>(), analysis));
@@ -61,7 +69,41 @@ namespace SIL.HCSynthByGloss
                         analysesCreator.RootIndex,
                         analysesCreator.category
                     );
-                    var newSyntheses = morpher.GenerateWords(wordAnalysis);
+                    IEnumerable<string> newSyntheses = new List<string>();
+                    if (traceManager.IsTracing)
+                    {
+                        LexEntry rootEntry = morphemes[analysesCreator.RootIndex] as LexEntry;
+                        FeatureStruct realizationalFS = new FeatureStruct();
+                        var results = new HashSet<string>();
+                        object trace = null;
+                        XElement topLevelTrace = CreateTopLevelElement(analysis);
+
+                        foreach (
+                            Stack<Morpheme> otherMorphemes in PermuteOtherMorphemes(
+                                morphemes,
+                                wordAnalysis.RootMorphemeIndex - 1,
+                                wordAnalysis.RootMorphemeIndex + 1
+                            )
+                        )
+                        {
+                            results.UnionWith(
+                                morpher.GenerateWords(
+                                    rootEntry,
+                                    otherMorphemes,
+                                    realizationalFS,
+                                    out trace
+                                )
+                            );
+                            // output of trace makes more sense if we invert the order
+                            topLevelTrace.AddFirst(trace);
+                        }
+                        Trace = topLevelTrace;
+                        newSyntheses = results;
+                    }
+                    else
+                    {
+                        newSyntheses = morpher.GenerateWords(wordAnalysis);
+                    }
                     string result = formatter.Format(newSyntheses, analysis);
                     sb.Append(result);
                 }
@@ -71,6 +113,65 @@ namespace SIL.HCSynthByGloss
                 indexEnd = glosses.Substring(lastIndexEnd + 1).IndexOf("$") + lastIndexEnd + 1;
             }
             return sb.ToString();
+        }
+
+        private static XElement CreateTopLevelElement(string analysis)
+        {
+            XElement traceRemember = new XElement("Synthesis");
+            int len = analysis.Length - 1;
+            int indexBegin = analysis[0] == '^' ? 1 : 0;
+            int indexEnd = analysis[len] == '$' ? len - 1 : len;
+            var inputAnalysis = new XAttribute(
+                "analysis",
+                analysis.Substring(indexBegin, (indexEnd - indexBegin) + 1)
+            );
+            traceRemember.Add(inputAnalysis);
+            return traceRemember;
+        }
+
+        // folloowing borrowed form Morpher; we could make the Morpher one be public
+        private IEnumerable<Stack<Morpheme>> PermuteOtherMorphemes(
+            List<Morpheme> morphemes,
+            int leftIndex,
+            int rightIndex
+        )
+        {
+            if (leftIndex == -1 && rightIndex == morphemes.Count)
+            {
+                yield return new Stack<Morpheme>();
+            }
+            else
+            {
+                if (rightIndex < morphemes.Count)
+                {
+                    foreach (
+                        Stack<Morpheme> p in PermuteOtherMorphemes(
+                            morphemes,
+                            leftIndex,
+                            rightIndex + 1
+                        )
+                    )
+                    {
+                        p.Push(morphemes[rightIndex]);
+                        yield return p;
+                    }
+                }
+
+                if (leftIndex > -1)
+                {
+                    foreach (
+                        Stack<Morpheme> p in PermuteOtherMorphemes(
+                            morphemes,
+                            leftIndex - 1,
+                            rightIndex
+                        )
+                    )
+                    {
+                        p.Push(morphemes[leftIndex]);
+                        yield return p;
+                    }
+                }
+            }
         }
 
         private static int AppendBetweenWordsContent(

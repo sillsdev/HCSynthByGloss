@@ -26,9 +26,9 @@ namespace SIL.HCSynthByGloss
             get { return instance; }
         }
 
-        public List<IMorpheme> ExtractMorphemes(string analysis, Morpher srcMorpher)
+        public List<Morpheme> ExtractMorphemes(string analysis, Morpher srcMorpher)
         {
-            List<IMorpheme> morphemes = new List<IMorpheme>();
+            List<Morpheme> morphemes = new List<Morpheme>();
             instance.Forms.Clear();
             var state = State.BEGIN;
             int index = 0;
@@ -97,7 +97,7 @@ namespace SIL.HCSynthByGloss
         private static int AddMorph(
             string analysis,
             Morpher srcMorpher,
-            List<IMorpheme> morphemes,
+            List<Morpheme> morphemes,
             int index,
             char endMarker
         )
@@ -113,7 +113,7 @@ namespace SIL.HCSynthByGloss
                         && m.Gloss.Normalize(NormalizationForm.FormD)
                             == shape.Normalize(NormalizationForm.FormD)
                 );
-                morphemes.Add(morph);
+                morphemes.Add(morph as Morpheme);
             }
             else
             {

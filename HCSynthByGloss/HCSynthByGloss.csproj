@@ -61,13 +61,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\fwrepo\fw\Output\Debug\SIL.Core.dll</HintPath>
     </Reference>
-    <Reference Include="SIL.Machine, Version=2.5.11.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="SIL.Machine, Version=2.5.12.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\fwrepo\machine\src\SIL.Machine.Morphology.HermitCrab\bin\Debug\netstandard2.0\SIL.Machine.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\fwrepo\fw\Output\Debug\SIL.Machine.dll</HintPath>
     </Reference>
-    <Reference Include="SIL.Machine.Morphology.HermitCrab, Version=2.5.11.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="SIL.Machine.Morphology.HermitCrab, Version=2.5.12.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\fwrepo\machine\src\SIL.Machine.Morphology.HermitCrab\bin\Debug\netstandard2.0\SIL.Machine.Morphology.HermitCrab.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\fwrepo\fw\Output\Debug\SIL.Machine.Morphology.HermitCrab.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -82,6 +82,8 @@
   <ItemGroup>
     <Compile Include="AnalysesCreator.cs" />
     <Compile Include="HCSynthByGloss.cs" />
+    <Compile Include="HcXmlTraceManager.cs" />
+    <Compile Include="ISynTraceManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SynthesizedWordFomatter.cs" />
     <Compile Include="Synthesizer.cs" />

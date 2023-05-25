@@ -9,6 +9,9 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
+using System.Xml.XPath;
+using System.Xml.Xsl;
 using SIL.Machine.Morphology;
 using SIL.Machine.Morphology.HermitCrab;
 using SIL.Machine.Morphology.HermitCrab.MorphologicalRules;
@@ -20,11 +23,20 @@ namespace SIL.HCSynthByGloss
     {
         static void Main(string[] args)
         {
-            if (args.Count() != 6 || args[0] != "-h" || args[2] != "-g" || args[4] != "-o")
+            bool doTracing = false;
+            int argCount = args.Count();
+            if (argCount != 6 || args[0] != "-h" || args[2] != "-g" || args[4] != "-o")
             {
-                Console.WriteLine("Usage:");
-                Console.WriteLine("HCSynthByGloss -h HC.xml_file -g gloss_file -o output");
-                Environment.Exit(1);
+                if (argCount == 7 && args[6] == "-t")
+                {
+                    doTracing = true;
+                }
+                else
+                {
+                    Console.WriteLine("Usage:");
+                    Console.WriteLine("HCSynthByGloss -h HC.xml_file -g gloss_file -o output (-t)");
+                    Environment.Exit(1);
+                }
             }
             if (!File.Exists(args[1]))
             {
@@ -38,13 +50,67 @@ namespace SIL.HCSynthByGloss
             }
 
             Language synLang = XmlLanguageLoader.Load(args[1]);
-            var hcTraceManager = new TraceManager();
-            //hcTraceManager.IsTracing = true;
+            var hcTraceManager = new HcXmlTraceManager();
+            hcTraceManager.IsTracing = doTracing;
             var srcMorpher = new Morpher(hcTraceManager, synLang);
             string glosses = File.ReadAllText(args[3], Encoding.UTF8);
             var synthesizer = Synthesizer.Instance;
-            string synthesizedWordForms = synthesizer.SynthesizeGlosses(glosses, srcMorpher);
+            string synthesizedWordForms = synthesizer.SynthesizeGlosses(
+                glosses,
+                srcMorpher,
+                synLang,
+                hcTraceManager
+            );
             File.WriteAllText(args[5], synthesizedWordForms, Encoding.UTF8);
+            if (hcTraceManager.IsTracing)
+            {
+                // we want to create a temp XML file and stuff synthesizer.Trace into it
+                // then transform it to an html file and show the html file
+                var tempXMlResult = createXmlFile(synthesizer);
+                string tempHtmResult = CreatHtmResult(tempXMlResult, synthesizer);
+                System.Diagnostics.Process.Start(tempHtmResult);
+            }
+        }
+
+        private static string CreatHtmResult(string xmlFile, Synthesizer synthesizer)
+        {
+            string tempHtmResult = Path.Combine(Path.GetTempPath(), "HCSynthTrace.htm");
+            Uri uriBase = new Uri(Assembly.GetExecutingAssembly().CodeBase);
+            var rootdir = Path.GetDirectoryName(Uri.UnescapeDataString(uriBase.AbsolutePath));
+            int i = rootdir.LastIndexOf("bin");
+            string basedir = rootdir.Substring(0, i);
+            string iconPath = Path.Combine(
+                basedir,
+                "Language Explorer",
+                "Configuration",
+                "Words",
+                "Analyses",
+                "TraceParse"
+            );
+            var traceTransform = new XslCompiledTransform();
+            XPathDocument doc = new XPathDocument(xmlFile);
+
+            traceTransform.Load(Path.Combine(basedir, @"Transforms\FormatHCTrace.xsl"));
+            StreamWriter result = new StreamWriter(tempHtmResult);
+            XsltArgumentList argList = new XsltArgumentList();
+            argList.AddParam("prmIconPath", "", iconPath);
+            // we do not have access to any of the following; use defaults
+            //argList.AddParam("prmAnalysisFont", "", m_language.NTFontFace);
+            //argList.AddParam("prmAnalysisFontSize", "", m_language.NTFontSize.ToString());
+            //argList.AddParam("prmVernacularFont", "", m_language.LexFontFace);
+            //argList.AddParam("prmVernacularFontSize", "", m_language.LexFontSize.ToString());
+            //argList.AddParam("prmVernacularRTL", "", m_language.NTColorName);
+            argList.AddParam("prmShowTrace", "", "true");
+            traceTransform.Transform(doc, argList, result);
+            result.Close();
+            return tempHtmResult;
+        }
+
+        private static string createXmlFile(Synthesizer synthesizer)
+        {
+            string tempXmlResult = Path.Combine(Path.GetTempPath(), "HCSynthTrace.xml");
+            File.WriteAllText(tempXmlResult, synthesizer.Trace.ToString());
+            return tempXmlResult;
         }
     }
 }
