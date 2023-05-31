@@ -24,6 +24,7 @@ namespace SIL.HCSynthByGloss
         static void Main(string[] args)
         {
             bool doTracing = false;
+            bool showTracing = false;
             int argCount = args.Count();
             if (argCount != 6 || args[0] != "-h" || args[2] != "-g" || args[4] != "-o")
             {
@@ -31,10 +32,21 @@ namespace SIL.HCSynthByGloss
                 {
                     doTracing = true;
                 }
+                else if (argCount == 8 && args[6] == "-t" && args[7] == "-s")
+                {
+                    doTracing = true;
+                    showTracing = true;
+                }
                 else
                 {
                     Console.WriteLine("Usage:");
-                    Console.WriteLine("HCSynthByGloss -h HC.xml_file -g gloss_file -o output (-t)");
+                    Console.WriteLine(
+                        "HCSynthByGloss -h HC.xml_file -g gloss_file -o output (-t (-s))"
+                    );
+                    Console.WriteLine("\t-t = turn on tracing");
+                    Console.WriteLine(
+                        "\t-s = show the tracing result in the system default web browser; -s is only valid when also using -t"
+                    );
                     Environment.Exit(1);
                 }
             }
@@ -68,7 +80,10 @@ namespace SIL.HCSynthByGloss
                 // then transform it to an html file and show the html file
                 var tempXMlResult = createXmlFile(synthesizer);
                 string tempHtmResult = CreatHtmResult(tempXMlResult, synthesizer);
-                System.Diagnostics.Process.Start(tempHtmResult);
+                if (showTracing)
+                {
+                    System.Diagnostics.Process.Start(tempHtmResult);
+                }
             }
         }
 
@@ -77,8 +92,13 @@ namespace SIL.HCSynthByGloss
             string tempHtmResult = Path.Combine(Path.GetTempPath(), "HCSynthTrace.htm");
             Uri uriBase = new Uri(Assembly.GetExecutingAssembly().CodeBase);
             var rootdir = Path.GetDirectoryName(Uri.UnescapeDataString(uriBase.AbsolutePath));
+            string basedir = rootdir;
             int i = rootdir.LastIndexOf("bin");
-            string basedir = rootdir.Substring(0, i);
+            if (i >= 0)
+            {
+                // rootdir is in development environment; adjust the value
+                basedir = rootdir.Substring(0, i);
+            }
             string iconPath = Path.Combine(
                 basedir,
                 "Language Explorer",

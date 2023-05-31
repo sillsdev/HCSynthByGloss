@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Hermit Crab Synthesis for FLExTrans"
-#define MyAppVersion "1.3.2 Beta"
+#define MyAppVersion "1.4.0 Beta"
 #define MyAppPublisher "SIL Iternational"
 #define MyAppURL "https://software.sil.org/"
 #define MyAppExeName "HCSynthByGloss.exe"
@@ -37,6 +37,8 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Source: "..\bin\x64\Release\HCSynthByGloss.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\bin\x64\Release\HCSynthByGloss.exe.config"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\bin\x64\Release\HCSynthByGloss.pdb"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Transforms\FormatCommon.xsl"; DestDir: "{app}\Transforms"; Flags: ignoreversion
+Source: "..\Transforms\FormatHCTrace.xsl"; DestDir: "{app}\Transforms"; Flags: ignoreversion
 ;Source: "..\bin\x64\Release\Newtonsoft.Json.dll"; DestDir: "{app}"; Flags: ignoreversion
 ;Source: "..\bin\x64\Release\Newtonsoft.Json.xml"; DestDir: "{app}"; Flags: ignoreversion
 ;Source: "..\bin\x64\Release\SIL.Core.dll"; DestDir: "{app}"; Flags: ignoreversion

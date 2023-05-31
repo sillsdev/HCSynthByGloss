@@ -935,13 +935,13 @@ function Toggle(node, path, imgOffset)
 		<img>
 			<xsl:attribute name="src">
 				<xsl:value-of select="$prmIconPath"/>
-				<xsl:text>/</xsl:text>
+				<xsl:text>\</xsl:text>
 				<xsl:value-of select="$sIcon"/>
 			</xsl:attribute>
 			<xsl:attribute name="onclick">
 				<xsl:text>Toggle(this.parentNode, "</xsl:text>
-				<xsl:value-of select="$prmIconPath"/>
-				<xsl:text>",</xsl:text>
+				<xsl:value-of select="translate($prmIconPath,'\\','/')"/>
+				<xsl:text>/",</xsl:text>
 				<xsl:choose>
 					<xsl:when test="$prmVernacularRTL='Y'">
 						<xsl:text> 8)</xsl:text>
@@ -1339,6 +1339,8 @@ ShowMorph
 		<table border="0">
 			<xsl:for-each select="//ParseCompleteTrace[@success='true']">
 				<xsl:call-template name="ShowSuccessfulSynthesis"/>
+				<tr><td/></tr>
+				<tr><td/></tr>
 			</xsl:for-each>
 		</table>
 	</xsl:template>
@@ -1649,20 +1651,36 @@ ShowMorph
 				<xsl:if test="$prmVernacularRTL='Y'">
 					<xsl:attribute name="style">direction:rtl; text-align:right</xsl:attribute>
 				</xsl:if>
-				<xsl:for-each select="AffixPermutation[1]/WordSynthesisTrace">
+				<xsl:for-each select="AffixPermutation[1]/WordSynthesisTrace[1]">
 					<xsl:call-template name="ShowMorph"/>
 				</xsl:for-each>
-				<table>
-					<tr>
-						<td>
-							<xsl:for-each select="AffixPermutation">
-								<xsl:call-template name="ShowTracePath">
-									<xsl:with-param name="traceRoot" select="WordSynthesisTrace"/>
-								</xsl:call-template>
-							</xsl:for-each>
-						</td>
-					</tr>
-				</table>
+				<xsl:choose>
+					<xsl:when test="error">
+						<p>
+							<xsl:attribute name="style">
+								<xsl:text>color:</xsl:text>
+								<xsl:value-of select="$sFailureColor"/>
+								<xsl:text>; font-size:larger</xsl:text>
+							</xsl:attribute>
+							<xsl:text>There was an error trying to synthesize this analysis.</xsl:text>
+							<br/>
+							<xsl:value-of select="error"/>
+						</p>
+					</xsl:when>
+					<xsl:otherwise>
+						<table>
+							<tr>
+								<td>
+									<xsl:for-each select="AffixPermutation/descendant-or-self::WordSynthesisTrace">
+										<xsl:call-template name="ShowTracePath">
+											<xsl:with-param name="traceRoot" select="."/>
+										</xsl:call-template>
+									</xsl:for-each>
+								</td>
+							</tr>
+						</table>
+					</xsl:otherwise>
+				</xsl:choose>
 			</div>
 		</div>
 	</xsl:template>

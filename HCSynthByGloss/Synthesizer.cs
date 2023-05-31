@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using System.Xml.XPath;
 
 namespace SIL.HCSynthByGloss
 {
@@ -61,6 +62,14 @@ namespace SIL.HCSynthByGloss
                             sb.Append(" ");
                         }
                     }
+                    if (traceManager.IsTracing)
+                    {
+                        XElement topLevelTrace = CreateTopLevelElement(analysis);
+                        XElement error = new XElement("error");
+                        error.Add(sb.ToString());
+                        topLevelTrace.Add(error);
+                        Trace = topLevelTrace;
+                    }
                 }
                 else
                 {
@@ -98,7 +107,23 @@ namespace SIL.HCSynthByGloss
                             topLevelTrace.AddFirst(trace);
                         }
                         Trace = topLevelTrace;
+#if ChangePeriodToSpace
+                        IEnumerable<XElement> list = topLevelTrace.XPathSelectElements(
+                            "//ParseCompleteTrace[@success='true']/Result"
+                        );
+                        for (int i = 0; i < results.Count && i < list.Count(); i++)
+                        {
+                            string fromHC = results.ElementAt(i);
+                            string fromTrace = list.ElementAt(i).Value;
+                            if (fromTrace.Contains("."))
+                            {
+                                fromHC = fromTrace.Replace(".", " ");
+                            }
+                            ((List<string>)newSyntheses).Add(fromHC);
+                        }
+#else
                         newSyntheses = results;
+#endif
                     }
                     else
                     {
