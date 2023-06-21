@@ -46,7 +46,7 @@ namespace SIL.HCSynthByGlossTest
         {
             var creator = AnalysesCreator.Instance;
             string analysis = "^<AV>ajar1.1<v>$";
-            List<IMorpheme> morphemes = creator.ExtractMorphemes(analysis, morpher);
+            List<Morpheme> morphemes = creator.ExtractMorphemes(analysis, morpher);
             Assert.AreEqual(2, morphemes.Count);
             Assert.AreEqual("AV", morphemes.ElementAt(0).Gloss);
             Assert.AreEqual("ajar1.1", morphemes.ElementAt(1).Gloss);
@@ -101,14 +101,15 @@ namespace SIL.HCSynthByGlossTest
         [Test]
         public void SynthesizerTest()
         {
+			ISynTraceManager traceManager = new HcXmlTraceManager();
             var synthesizer = Synthesizer.Instance;
             glosses = "";
-            string synthesizedWordForms = synthesizer.SynthesizeGlosses(glosses, morpher);
+            string synthesizedWordForms = synthesizer.SynthesizeGlosses(glosses, morpher, synLang, traceManager);
             Assert.AreEqual("", synthesizedWordForms);
 
             glosses = File.ReadAllText(glossFile, Encoding.UTF8);
             Assert.AreEqual(1310, glosses.Length);
-            synthesizedWordForms = synthesizer.SynthesizeGlosses(glosses, morpher);
+            synthesizedWordForms = synthesizer.SynthesizeGlosses(glosses, morpher, synLang, traceManager);
             string expectedWordForms = File.ReadAllText(expectedWordFormsFile, Encoding.UTF8)
                 .Replace("\r", "");
             Assert.AreEqual(expectedWordForms, synthesizedWordForms);

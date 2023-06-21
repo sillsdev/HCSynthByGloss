@@ -933,6 +933,7 @@ namespace SIL.FieldWorks.WordWorks.Parser
                         entry.HeadWord.Text,
                         m_cache.LangProject.DefaultAnalysisWritingSystem.LanguageTag
                     );
+					lowered = lowered.Replace("#", " ");
                     sb.Append(lowered);
                     int homograph = entry.HomographNumber;
                     if (homograph == 0)
@@ -2306,6 +2307,19 @@ namespace SIL.FieldWorks.WordWorks.Parser
                         name = "r";
                     else if (i == indices[PhMetathesisRuleTags.kidxLeftSwitch])
                         name = "l";
+                    else if (i == indices[PhMetathesisRuleTags.kidxLeftEnv])
+                        name = "leftEnv";
+                    else if (i == indices[PhMetathesisRuleTags.kidxRightEnv])
+                        name = "rightEnv";
+                    else if (i == indices[PhMetathesisRuleTags.kidxMiddle])
+                        name = "middle";
+                    else
+                    {
+                        // we need a unique, non-null name for these as Hermit Crab uses a dictionary with unique keys
+                        // in AnalysisMetathesisRuleSpec() constructor
+                        // See LT-20038
+                        name = i.ToString();
+                    }
                     pattern.Children.Add(new Group<Word, ShapeNode>(name, node));
                 }
             }
@@ -2799,7 +2813,7 @@ namespace SIL.FieldWorks.WordWorks.Parser
 
         private string FormatRootForm(string formStr)
         {
-            var formatted = formStr.Trim().Replace(' ', '.');
+            var formatted = formStr.Trim().Replace(' ', '#');
             string lowered = LowerString(
                 formatted,
                 m_cache.LangProject.DefaultVernacularWritingSystem.LanguageTag
