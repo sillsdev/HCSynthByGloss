@@ -933,7 +933,7 @@ namespace SIL.FieldWorks.WordWorks.Parser
                         entry.HeadWord.Text,
                         m_cache.LangProject.DefaultAnalysisWritingSystem.LanguageTag
                     );
-					lowered = lowered.Replace("#", " ");
+                    lowered = lowered.Replace("#", " ");
                     sb.Append(lowered);
                     int homograph = entry.HomographNumber;
                     if (homograph == 0)

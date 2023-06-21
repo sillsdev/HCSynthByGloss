@@ -101,15 +101,25 @@ namespace SIL.HCSynthByGlossTest
         [Test]
         public void SynthesizerTest()
         {
-			ISynTraceManager traceManager = new HcXmlTraceManager();
+            ISynTraceManager traceManager = new HcXmlTraceManager();
             var synthesizer = Synthesizer.Instance;
             glosses = "";
-            string synthesizedWordForms = synthesizer.SynthesizeGlosses(glosses, morpher, synLang, traceManager);
+            string synthesizedWordForms = synthesizer.SynthesizeGlosses(
+                glosses,
+                morpher,
+                synLang,
+                traceManager
+            );
             Assert.AreEqual("", synthesizedWordForms);
 
             glosses = File.ReadAllText(glossFile, Encoding.UTF8);
             Assert.AreEqual(1310, glosses.Length);
-            synthesizedWordForms = synthesizer.SynthesizeGlosses(glosses, morpher, synLang, traceManager);
+            synthesizedWordForms = synthesizer.SynthesizeGlosses(
+                glosses,
+                morpher,
+                synLang,
+                traceManager
+            );
             string expectedWordForms = File.ReadAllText(expectedWordFormsFile, Encoding.UTF8)
                 .Replace("\r", "");
             Assert.AreEqual(expectedWordForms, synthesizedWordForms);

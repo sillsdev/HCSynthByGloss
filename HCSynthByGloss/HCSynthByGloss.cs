@@ -73,7 +73,7 @@ namespace SIL.HCSynthByGloss
                 synLang,
                 hcTraceManager
             );
-			synthesizedWordForms = synthesizedWordForms.Replace("#", " ");
+            synthesizedWordForms = synthesizedWordForms.Replace("#", " ");
             File.WriteAllText(args[5], synthesizedWordForms, Encoding.UTF8);
             if (hcTraceManager.IsTracing)
             {
