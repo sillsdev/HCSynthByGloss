@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Generate Hermit Crab configuration file for use with FLExTrans"
-#define MyAppVersion "1.6.0 Beta"
+#define MyAppVersion "1.6.1 Beta"
 #define MyAppPublisher "SIL Iternational"
 #define MyAppURL "https://software.sil.org/"
 #define MyAppExeName "GenerateHCConfigForFLExTrans.exe"
@@ -11,7 +11,7 @@
 ; NOTE: The value of AppId uniquely identifies this application.
 ; Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId={{C8ED473B-7E9E-45EF-B1F1-C5ED3AB88643}
+AppId={{27DE0AAC-D935-4FBB-BCC0-901203BA8112}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 ;AppVerName={#MyAppName} {#MyAppVersion}
