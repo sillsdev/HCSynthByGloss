@@ -45,31 +45,9 @@ namespace SIL.HCSynthByGloss
                 if (morphemes.Contains(null))
                 {
                     sb.Append(formatter.Format(new List<string>(), analysis));
-                    sb.Append(" One or more glosses not found: ");
-                    for (int i = 0; i < morphemes.Count; i++)
-                    {
-                        IMorpheme morpheme = morphemes[i];
-                        if (morpheme == null)
-                        {
-                            sb.Append("(");
-                            sb.Append(analysesCreator.Forms[i]);
-                            sb.Append(" missing)");
-                        }
-                        else
-                        {
-                            sb.Append(" ");
-                            sb.Append(morpheme.Gloss);
-                            sb.Append(" ");
-                        }
-                    }
-                    if (traceManager.IsTracing)
-                    {
-                        XElement topLevelTrace = CreateTopLevelElement(analysis);
-                        XElement error = new XElement("error");
-                        error.Add(sb.ToString());
-                        topLevelTrace.Add(error);
-                        Trace = topLevelTrace;
-                    }
+                    CollectMissingGlosses(sb, analysesCreator, morphemes);
+                    CheckForDuplicates(morpher, sb, morphemes);
+                    AddToTracing(traceManager, sb, analysis);
                 }
                 else
                 {
@@ -131,6 +109,10 @@ namespace SIL.HCSynthByGloss
                     }
                     string result = formatter.Format(newSyntheses, analysis);
                     sb.Append(result);
+                    if (CheckForDuplicates(morpher, sb, morphemes))
+                    {
+                        AddToTracing(traceManager, sb, analysis);
+                    }
                 }
                 int lastIndexEnd = indexEnd;
                 indexCaret = AppendBetweenWordsContent(glosses, sb, lastIndexEnd);
@@ -138,6 +120,76 @@ namespace SIL.HCSynthByGloss
                 indexEnd = glosses.Substring(lastIndexEnd + 1).IndexOf("$") + lastIndexEnd + 1;
             }
             return sb.ToString();
+        }
+
+        private void CollectMissingGlosses(
+            StringBuilder sb,
+            AnalysesCreator analysesCreator,
+            List<Morpheme> morphemes
+        )
+        {
+            sb.Append(" One or more glosses not found:");
+            var glossesFound = new List<string>();
+            foreach (Morpheme morpheme in morphemes)
+            {
+                if (morpheme != null)
+                {
+                    glossesFound.Add(morpheme.Gloss);
+                }
+            }
+            foreach (string form in analysesCreator.Forms)
+            {
+                if (!glossesFound.Contains(form))
+                {
+                    sb.Append(" '");
+                    sb.Append(form);
+                    sb.Append("';");
+                }
+            }
+        }
+
+        private void AddToTracing(ISynTraceManager traceManager, StringBuilder sb, string analysis)
+        {
+            if (traceManager.IsTracing)
+            {
+                XElement topLevelTrace = CreateTopLevelElement(analysis);
+                XElement error = new XElement("error");
+                error.Add(sb.ToString());
+                topLevelTrace.Add(error);
+                Trace = topLevelTrace;
+            }
+        }
+
+        private bool CheckForDuplicates(Morpher morpher, StringBuilder sb, List<Morpheme> morphemes)
+        {
+            bool duplicateFound = false;
+            foreach (Morpheme morph in morphemes)
+            {
+                if (morph == null)
+                    continue;
+                var duplicateGloss = morpher.Morphemes.FirstOrDefault(
+                    m => m.Gloss == morph.Gloss && m != morph
+                );
+                if (duplicateGloss != null)
+                {
+                    if (!duplicateFound)
+                    {
+                        sb.Append(" Duplicate gloss(es) found for '");
+                        duplicateFound = true;
+                    }
+                    else
+                    {
+                        sb.Append(" '");
+                    }
+                    sb.Append(morph.Gloss);
+                    sb.Append("';");
+                }
+            }
+            if (duplicateFound)
+            {
+                sb.Append(" synthesis may not work.");
+            }
+            return duplicateFound;
         }
 
         private static XElement CreateTopLevelElement(string analysis)
