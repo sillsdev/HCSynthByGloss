@@ -1574,7 +1574,8 @@ namespace SIL.FieldWorks.WordWorks.Parser
                                     termUnit.ClassID == PhBdryMarkerTags.kClassId
                                         ? code.Representation.BestVernacularAlternative.Text
                                         : code.Representation.VernacularDefaultWritingSystem.Text;
-                                strRep = strRep.Trim();
+                                if (strRep != null)
+                                    strRep = strRep.Trim();
                                 if (string.IsNullOrEmpty(strRep))
                                     throw new InvalidAffixProcessException(allo, false);
                                 sb.Append(strRep);
