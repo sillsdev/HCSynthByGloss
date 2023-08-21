@@ -852,7 +852,11 @@ namespace SIL.FieldWorks.WordWorks.Parser
                         if (mainEntry != null)
                         {
                             foreach (IMoMorphSynAnalysis msa in mainEntry.MorphoSyntaxAnalysesOC)
-                                LoadMorphologicalRule(stratum, entry, allos, msa);
+                            {
+                                int variantIndex =
+                                    lexEntryRef.ComponentLexemesRS.IndexOf(component) + 1;
+                                LoadMorphologicalRule(stratum, entry, allos, msa, variantIndex);
+                            }
                         }
                         else
                         {
@@ -861,7 +865,8 @@ namespace SIL.FieldWorks.WordWorks.Parser
                                 stratum,
                                 entry,
                                 allos,
-                                sense.MorphoSyntaxAnalysisRA
+                                sense.MorphoSyntaxAnalysisRA,
+                                -1
                             );
                         }
                     }
@@ -869,14 +874,15 @@ namespace SIL.FieldWorks.WordWorks.Parser
             }
 
             foreach (IMoMorphSynAnalysis msa in entry.MorphoSyntaxAnalysesOC)
-                LoadMorphologicalRule(stratum, entry, allos, msa);
+                LoadMorphologicalRule(stratum, entry, allos, msa, -1);
         }
 
         private void LoadMorphologicalRule(
             Stratum stratum,
             ILexEntry entry,
             IList<IMoForm> allos,
-            IMoMorphSynAnalysis msa
+            IMoMorphSynAnalysis msa,
+            int variantIndex
         )
         {
             AffixProcessRule mrule = null;
@@ -912,6 +918,10 @@ namespace SIL.FieldWorks.WordWorks.Parser
             if (mrule != null)
             {
                 mrule.Gloss = GetGloss(msa, isCliticAffix);
+                if (variantIndex > 0)
+                {
+                    mrule.Gloss += "_variant." + variantIndex + "_";
+                }
                 AddMorphologicalRule(s, mrule, msa);
             }
         }
