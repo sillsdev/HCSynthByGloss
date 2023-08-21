@@ -62,6 +62,9 @@ namespace SIL.GenerateHCConfigForFLExTrans
                     Console.WriteLine("Loading completed.");
                     Console.WriteLine("Writing HC configuration file...");
                     XmlLanguageWriter.Save(language, hcXML);
+                    Console.WriteLine("Checking for duplicate glosses.");
+                    var dupChecker = new DuplicateGlossChecker(hcXML);
+                    dupChecker.ReportAnyDuplicateGlosses();
                     Console.WriteLine("Writing completed.");
                 }
                 return 0;

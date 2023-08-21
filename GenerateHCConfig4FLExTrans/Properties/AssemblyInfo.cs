@@ -13,7 +13,7 @@ using System.Reflection;
 )]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("SIL International")]
-[assembly: AssemblyProduct("AllomorphGenerator")]
+[assembly: AssemblyProduct("GenerateHCConfigForFLExTrans")]
 [assembly: AssemblyCopyright("Copyright © 2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
