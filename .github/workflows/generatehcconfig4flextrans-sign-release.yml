@@ -5,7 +5,7 @@ name: GenerateHCConfig4FLExTrans Sign and Release
 on:
   push:
     paths:
-      - 'Installer/Output/**'
+      - 'GenerateHCConfig4FLExTrans/Installer/Output/**'
       - '.github/workflows/generatehcconfig4flextrans-sign-release.yml'
 
 jobs:
@@ -23,7 +23,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: GenerateHCConfig4FLExTrans
-          path: GenerateHCConfig4FLExTrans/Installer/Output/GenerateHCConfigForFLExTrans.exe
+          path: GenerateHCConfig4FLExTrans/Installer/Output/GenerateHCConfig4FLExTrans.exe
           if-no-files-found: error
 
   sign-installer:
@@ -48,7 +48,7 @@ jobs:
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          files: GenerateHCConfigForFLExTransSetup.exe
+          files: GenerateHCConfig4FLExTransSetup.exe
           body: |
             Release for version ${{ github.ref }}
           draft: true
