@@ -48,7 +48,7 @@ jobs:
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          files: GenerateHCConfig4FLExTransSetup.exe
+          files: GenerateHCConfig*.exe
           body: |
             Release for version ${{ github.ref }}
           draft: true
