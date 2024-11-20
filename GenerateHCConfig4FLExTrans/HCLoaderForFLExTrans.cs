@@ -575,8 +575,16 @@ namespace SIL.FieldWorks.WordWorks.Parser
                 }
             }
 
-            foreach (IMoStemMsa msa in entry.MorphoSyntaxAnalysesOC.OfType<IMoStemMsa>())
-                LoadLexEntry(stratum, msa, allos);
+            foreach (ILexSense sense in entry.SensesOS)
+            {
+                IMoMorphSynAnalysis msaOfSense = sense.MorphoSyntaxAnalysisRA;
+                if (msaOfSense != null && msaOfSense.ClassID == MoStemMsaTags.kClassId)
+                {
+                    IMoStemMsa msa = msaOfSense as IMoStemMsa;
+                    string gloss = GetGlossForStem(sense, msa, false);
+                    LoadLexEntry(stratum, gloss, msa, allos);
+                }
+            }
         }
 
         private IEnumerable<ILexEntryInflType> GetInflTypes(ILexEntryRef lexEntryRef)
@@ -612,7 +620,12 @@ namespace SIL.FieldWorks.WordWorks.Parser
             }
         }
 
-        private void LoadLexEntry(Stratum stratum, IMoStemMsa msa, IList<IMoStemAllomorph> allos)
+        private void LoadLexEntry(
+            Stratum stratum,
+            string gloss,
+            IMoStemMsa msa,
+            IList<IMoStemAllomorph> allos
+        )
         {
             var hcEntry = new LexEntry();
 
@@ -623,7 +636,8 @@ namespace SIL.FieldWorks.WordWorks.Parser
             foreach (ICmPossibility prodRestrict in msa.ProdRestrictRC)
                 hcEntry.MprFeatures.Add(m_mprFeatures[prodRestrict]);
 
-            hcEntry.Gloss = GetGloss(msa, false);
+            //			hcEntry.Gloss = GetGloss(msa, false);
+            hcEntry.Gloss = gloss;
 
             var fs = new FeatureStruct();
             if (msa.PartOfSpeechRA != null)
@@ -926,9 +940,25 @@ namespace SIL.FieldWorks.WordWorks.Parser
             }
         }
 
+        private string GetGlossForStem(ILexSense sense, IMoMorphSynAnalysis msa, bool isCliticAffix)
+        {
+            string result = GetGlossViaSense(msa, isCliticAffix, sense);
+            return result;
+        }
+
         private string GetGloss(IMoMorphSynAnalysis msa, bool isCliticAffix)
         {
             ILexSense sense = msa.OwnerOfClass<ILexEntry>().SenseWithMsa(msa);
+            string result = GetGlossViaSense(msa, isCliticAffix, sense);
+            return result;
+        }
+
+        private string GetGlossViaSense(
+            IMoMorphSynAnalysis msa,
+            bool isCliticAffix,
+            ILexSense sense
+        )
+        {
             string result =
                 sense == null
                     ? null
@@ -956,6 +986,7 @@ namespace SIL.FieldWorks.WordWorks.Parser
                     result = sb.ToString().Normalize(NormalizationForm.FormD);
                 }
             }
+
             return result;
         }
 
