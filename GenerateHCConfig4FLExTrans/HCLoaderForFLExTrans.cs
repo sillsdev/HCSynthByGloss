@@ -790,11 +790,7 @@ namespace SIL.FieldWorks.WordWorks.Parser
             string result = "";
             if (entry != null)
             {
-                string lowered = LowerString(
-                    entry.HeadWord.Text,
-                    m_cache.LangProject.DefaultAnalysisWritingSystem.LanguageTag
-                );
-                sb.Append(lowered);
+                sb.Append(entry.HeadWord.Text);
                 int homograph = entry.HomographNumber;
                 if (homograph == 0)
                 {
@@ -969,12 +965,9 @@ namespace SIL.FieldWorks.WordWorks.Parser
                 if (entry != null)
                 {
                     StringBuilder sb = new StringBuilder();
-                    string lowered = LowerString(
-                        entry.HeadWord.Text,
-                        m_cache.LangProject.DefaultAnalysisWritingSystem.LanguageTag
-                    );
-                    lowered = lowered.Replace("#", " ");
-                    sb.Append(lowered);
+					string formatted = entry.HeadWord.Text;
+                    formatted = formatted.Replace("#", " ");
+                    sb.Append(formatted);
                     int homograph = entry.HomographNumber;
                     if (homograph == 0)
                     {
@@ -988,13 +981,6 @@ namespace SIL.FieldWorks.WordWorks.Parser
             }
 
             return result;
-        }
-
-        private string LowerString(string item, string code)
-        {
-            var ci = CultureInfo.GetCultureInfo(code);
-            string lowered = (ci != null) ? item.ToLower(ci) : item.ToLower();
-            return lowered;
         }
 
         private void AddMorphologicalRule(
@@ -2856,11 +2842,7 @@ namespace SIL.FieldWorks.WordWorks.Parser
         private string FormatRootForm(string formStr)
         {
             var formatted = formStr.Trim().Replace(' ', '#');
-            string lowered = LowerString(
-                formatted,
-                m_cache.LangProject.DefaultVernacularWritingSystem.LanguageTag
-            );
-            return lowered;
+			return formatted;
         }
 
         private static string FormatForm(string formStr)
