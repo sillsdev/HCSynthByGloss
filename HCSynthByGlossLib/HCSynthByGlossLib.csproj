@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CD9E5E81-F590-4B06-9C43-CEAF4AAD71DB}</ProjectGuid>
+    <ProjectGuid>{5E31B48C-00A1-4799-A9F7-589E01B1BBD5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HCSynthByGlossTest</RootNamespace>
-    <AssemblyName>HCSynthByGlossTest</AssemblyName>
+    <RootNamespace>HCSynthByGlossLib</RootNamespace>
+    <AssemblyName>HCSynthByGlossLib</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -49,30 +49,24 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HCSynthByGlossLib">
-      <HintPath>..\HCSynthByGlossLib\bin\x64\Debug\HCSynthByGlossLib.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\fwrepo\fw\Output\Debug\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.framework">
-      <HintPath>..\..\..\..\..\..\..\fwrepo\fw\Output\Debug\nunit.framework.dll</HintPath>
-    </Reference>
-    <Reference Include="SIL.Core, Version=11.0.0.0, Culture=neutral, PublicKeyToken=cab3c8c5232dfcf2, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="SIL.Core">
       <HintPath>..\..\..\..\..\..\..\fwrepo\fw\Output\Debug\SIL.Core.dll</HintPath>
     </Reference>
-    <Reference Include="SIL.Machine, Version=2.5.12.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="SIL.Machine">
       <HintPath>..\..\..\..\..\..\..\fwrepo\fw\Output\Debug\SIL.Machine.dll</HintPath>
     </Reference>
-    <Reference Include="SIL.Machine.Morphology.HermitCrab, Version=2.5.12.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="SIL.Machine.Morphology.HermitCrab">
       <HintPath>..\..\..\..\..\..\..\fwrepo\fw\Output\Debug\SIL.Machine.Morphology.HermitCrab.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http">
+      <HintPath>..\..\..\..\..\..\..\fwrepo\fw\Output\Debug\System.Net.Http.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -80,15 +74,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HCSynthByGlossTest.cs" />
+    <Compile Include="AnalysesCreator.cs" />
+    <Compile Include="HcXmlTraceManager.cs" />
+    <Compile Include="ISynTraceManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
+    <Compile Include="SynthesizedWordFomatter.cs" />
+    <Compile Include="Synthesizer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>copy "$(SolutionDir)HCSynthByGloss\bin\x64\Debug\HCSynthByGloss.exe.config" "$(TargetDir)"</PostBuildEvent>
-  </PropertyGroup>
 </Project>
