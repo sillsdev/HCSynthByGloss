@@ -53,6 +53,9 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="HCSynthByGlossLib">
+      <HintPath>..\HCSynthByGlossLib\bin\x64\Release\HCSynthByGlossLib.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\fwrepo\fw\Output\Debug\Newtonsoft.Json.dll</HintPath>
@@ -82,13 +85,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnalysesCreator.cs" />
     <Compile Include="HCSynthByGloss.cs" />
-    <Compile Include="HcXmlTraceManager.cs" />
-    <Compile Include="ISynTraceManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SynthesizedWordFomatter.cs" />
-    <Compile Include="Synthesizer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
