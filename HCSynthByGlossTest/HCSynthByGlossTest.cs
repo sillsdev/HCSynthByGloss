@@ -120,6 +120,8 @@ namespace SIL.HCSynthByGlossTest
                 synLang,
                 traceManager
             );
+			// Remove the comment on the next line to see the current results.
+			//Console.Write(synthesizedWordForms);
             string expectedWordForms = File.ReadAllText(expectedWordFormsFile, Encoding.UTF8)
                 .Replace("\r", "");
             Assert.AreEqual(expectedWordForms, synthesizedWordForms);

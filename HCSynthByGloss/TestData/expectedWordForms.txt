@@ -1,4 +1,4 @@
-﻿mengajar
+mengajar
 %2%mengamati-mengamati%mengamati-amati%
 %2%mengamat-mengamati%mengamat-amati%
 mengambil
@@ -23,7 +23,7 @@ menjual
 mengaca
 mengarang
 %2%mengayuh-mengayuh%mengayuh-ngayuh%
-%0%^<AV>khawatir1.1<v><Caus>$%
+%0%^<AV>khawatir1.1<v><Caus>$% Duplicate gloss(es) found for 'Caus'; synthesis may not work.
 mengirim
 melangit
 melempar
@@ -44,7 +44,7 @@ merasa
 menyatu
 menyewa
 %2%menyewa-menyewa%menyewa-nyewa%
-%0%^<AV>syarat1.1<v><Caus>$%
+%0%^<AV>syarat1.1<v><Caus>$% Duplicate gloss(es) found for 'Caus'; synthesis may not work.
 menulis
 %2%menulis-menulis%menulis-nulis%
 mengundang
@@ -52,9 +52,9 @@ mengurus
 mewakili
 meyakini
 menziarahi
-%0%^<AVxyz>yakin1.1<v><CAUSi>$% One or more glosses not found: (AVxyz missing) yakin1.1  CAUSi 
-%0%^<AV>yakin1.1<v><CAUSiXyz>$% One or more glosses not found:  AV  yakin1.1 (CAUSiXyz missing)
-%0%^<AVxyz>yakinxyz1.1<v><CAUSi>$% One or more glosses not found: (AVxyz missing)(yakinxyz1.1 missing) CAUSi 
+%0%^<AVxyz>yakin1.1<v><CAUSi>$% One or more glosses not found: 'AVxyz';
+%0%^<AV>yakin1.1<v><CAUSiXyz>$% One or more glosses not found: 'CAUSiXyz';
+%0%^<AVxyz>yakinxyz1.1<v><CAUSi>$% One or more glosses not found: 'AVxyz'; 'yakinxyz1.1';
 mewakili,menulis
 karang-karangi
 kemengarangian

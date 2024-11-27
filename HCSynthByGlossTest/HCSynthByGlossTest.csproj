@@ -49,6 +49,9 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="HCSynthByGlossLib">
+      <HintPath>..\HCSynthByGlossLib\bin\x64\Debug\HCSynthByGlossLib.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\fwrepo\fw\Output\Debug\Newtonsoft.Json.dll</HintPath>
@@ -79,12 +82,6 @@
   <ItemGroup>
     <Compile Include="HCSynthByGlossTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\HCSynthByGloss\HCSynthByGloss.csproj">
-      <Project>{765F99FE-C613-42B4-AC05-D5EB3D343BF7}</Project>
-      <Name>HCSynthByGloss</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

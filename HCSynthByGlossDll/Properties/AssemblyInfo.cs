@@ -1,20 +1,16 @@
-﻿// Copyright (c) 2023-2024 SIL International
-// This software is licensed under the LGPL, version 2.1 or later
-// (http://www.gnu.org/licenses/lgpl-2.1.html)
-
-using System.Reflection;
+﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("HCSynthByGloss")]
-[assembly: AssemblyDescription("Console app to run HermitCrab synthesis based on a set of glosses")]
+[assembly: AssemblyTitle("HCSynthByGlossDll")]
+[assembly: AssemblyDescription("DLL app to run HermitCrab synthesis based on a set of glosses")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("SIL International")]
-[assembly: AssemblyProduct("HCSynthByGloss")]
-[assembly: AssemblyCopyright("Copyright © 2023-2024")]
+[assembly: AssemblyProduct("HCSynthByGlossDll")]
+[assembly: AssemblyCopyright("Copyright ©  2024")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -24,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("765f99fe-c613-42b4-ac05-d5eb3d343bf7")]
+[assembly: Guid("7e5a90a2-f882-48f8-a92b-8d7ae0447b58")]
 
 // Version information for an assembly consists of the following four values:
 //
