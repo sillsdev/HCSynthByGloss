@@ -369,9 +369,13 @@ namespace SIL.FieldWorks.WordWorks.Parser
                         )
                         {
                             RewriteRule hcRegRule = LoadRewriteRule(regRule);
-                            m_morphophonemic.PhonologicalRules.Add(hcRegRule);
+                            if (hcRegRule == null)
+                                continue;
+                            // Choose which stratum the phonological rules apply on.
                             if (!m_notOnClitics)
                                 m_clitic.PhonologicalRules.Add(hcRegRule);
+                            else
+                                m_morphophonemic.PhonologicalRules.Add(hcRegRule);
                             m_language.PhonologicalRules.Add(hcRegRule);
                         }
                         break;
@@ -381,9 +385,12 @@ namespace SIL.FieldWorks.WordWorks.Parser
                         if (metaRule.LeftSwitchIndex != -1 && metaRule.RightSwitchIndex != -1)
                         {
                             MetathesisRule hcMetaRule = LoadMetathesisRule(metaRule);
-                            m_morphophonemic.PhonologicalRules.Add(hcMetaRule);
+
+                            // Choose which stratum the phonological rules apply on.
                             if (!m_notOnClitics)
                                 m_clitic.PhonologicalRules.Add(hcMetaRule);
+                            else
+                                m_morphophonemic.PhonologicalRules.Add(hcMetaRule);
                             m_language.PhonologicalRules.Add(hcMetaRule);
                         }
                         break;
@@ -488,10 +495,13 @@ namespace SIL.FieldWorks.WordWorks.Parser
 
         private void LoadMprFeature(ICmObject obj, MprFeatureGroup group)
         {
-            var feat = new MprFeature { Name = obj.ShortName };
-            group.MprFeatures.Add(feat);
-            m_mprFeatures[obj] = feat;
-            m_language.MprFeatures.Add(feat);
+            if (obj.ShortName != null)
+            {
+                var feat = new MprFeature { Name = obj.ShortName };
+                group.MprFeatures.Add(feat);
+                m_mprFeatures[obj] = feat;
+                m_language.MprFeatures.Add(feat);
+            }
         }
 
         private bool IsValidLexEntryForm(IMoForm form)
@@ -965,7 +975,7 @@ namespace SIL.FieldWorks.WordWorks.Parser
                 if (entry != null)
                 {
                     StringBuilder sb = new StringBuilder();
-					string formatted = entry.HeadWord.Text;
+                    string formatted = entry.HeadWord.Text;
                     formatted = formatted.Replace("#", " ");
                     sb.Append(formatted);
                     int homograph = entry.HomographNumber;
@@ -2389,7 +2399,7 @@ namespace SIL.FieldWorks.WordWorks.Parser
                             adjacency
                         );
                         firstAllo.AllomorphCoOccurrenceRules.Add(rule);
-                        m_language.AllomorphCoOccurrenceRules.Add(rule);
+                        m_language.AllomorphCoOccurrenceRules.Add((firstAllo, rule));
                     }
                 }
             }
@@ -2443,7 +2453,7 @@ namespace SIL.FieldWorks.WordWorks.Parser
                             adjacency
                         );
                         firstMorpheme.MorphemeCoOccurrenceRules.Add(rule);
-                        m_language.MorphemeCoOccurrenceRules.Add(rule);
+                        m_language.MorphemeCoOccurrenceRules.Add((firstMorpheme, rule));
                     }
                 }
             }
@@ -2804,7 +2814,7 @@ namespace SIL.FieldWorks.WordWorks.Parser
         private Shape Segment(string str)
         {
             Shape shape;
-            if (m_acceptUnspecifiedGraphemes)
+            if (m_acceptUnspecifiedGraphemes && !IsLexicalPattern(str))
             {
                 int[] baseCharPositions = null;
                 do
@@ -2834,15 +2844,24 @@ namespace SIL.FieldWorks.WordWorks.Parser
             }
             else
             {
-                shape = m_table.Segment(str);
+                shape = m_table.Segment(str, true);
             }
             return shape;
+        }
+
+        /// <summary>
+        /// Does form contain a lexical pattern (e.g. [Seg]*)?
+        /// </summary>
+        public static bool IsLexicalPattern(string form)
+        {
+            // This assumes that "[" and "]" are not part of any phonemes.
+            return form.Contains("[") && form.Contains("]");
         }
 
         private string FormatRootForm(string formStr)
         {
             var formatted = formStr.Trim().Replace(' ', '#');
-			return formatted;
+            return formatted;
         }
 
         private static string FormatForm(string formStr)
@@ -3044,6 +3063,17 @@ namespace SIL.FieldWorks.WordWorks.Parser
                     if (!m_table.Contains(otherChar))
                         m_table.AddBoundary(otherChar);
                 }
+            }
+            // Add natural classes to table for lexical patterns.
+            foreach (NaturalClass hcNaturalClass in m_language.NaturalClasses)
+            {
+                m_table.AddNaturalClass(hcNaturalClass);
+            }
+            foreach (string ncName in m_naturalClassLookup.Keys)
+            {
+                NaturalClass hcNaturalClass;
+                if (TryLoadNaturalClass(m_naturalClassLookup[ncName], out hcNaturalClass))
+                    m_table.AddNaturalClass(hcNaturalClass);
             }
             m_language.CharacterDefinitionTables.Add(m_table);
         }

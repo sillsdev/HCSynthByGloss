@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using SIL.HCSynthByGloss;
 using SIL.HCSynthByGloss2;
 using SIL.Machine.Morphology.HermitCrab;
 using System;

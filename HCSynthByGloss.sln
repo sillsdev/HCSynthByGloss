@@ -1,19 +1,33 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.2017
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HCSynthByGloss", "HCSynthByGloss\HCSynthByGloss.csproj", "{765F99FE-C613-42B4-AC05-D5EB3D343BF7}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5E31B48C-00A1-4799-A9F7-589E01B1BBD5} = {5E31B48C-00A1-4799-A9F7-589E01B1BBD5}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HCSynthByGlossTest", "HCSynthByGlossTest\HCSynthByGlossTest.csproj", "{CD9E5E81-F590-4B06-9C43-CEAF4AAD71DB}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5E31B48C-00A1-4799-A9F7-589E01B1BBD5} = {5E31B48C-00A1-4799-A9F7-589E01B1BBD5}
+		{765F99FE-C613-42B4-AC05-D5EB3D343BF7} = {765F99FE-C613-42B4-AC05-D5EB3D343BF7}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenerateHCConfigForFLExTrans", "GenerateHCConfig4FLExTrans\GenerateHCConfigForFLExTrans.csproj", "{39D15298-8C61-48F6-91CB-2809531CC94F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HCSynthByGlossDll", "HCSynthByGlossDll\HCSynthByGlossDll.csproj", "{7E5A90A2-F882-48F8-A92B-8D7AE0447B58}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5E31B48C-00A1-4799-A9F7-589E01B1BBD5} = {5E31B48C-00A1-4799-A9F7-589E01B1BBD5}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HCSynthByGlossLib", "HCSynthByGlossLib\HCSynthByGlossLib.csproj", "{5E31B48C-00A1-4799-A9F7-589E01B1BBD5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HCSynthByGlossDllTest", "HCSynthByGlossDllTest\HCSynthByGlossDllTest.csproj", "{7EF3805F-2979-4941-8260-2D99CEBDBC0D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5E31B48C-00A1-4799-A9F7-589E01B1BBD5} = {5E31B48C-00A1-4799-A9F7-589E01B1BBD5}
+		{7E5A90A2-F882-48F8-A92B-8D7AE0447B58} = {7E5A90A2-F882-48F8-A92B-8D7AE0447B58}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
