@@ -121,4 +121,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(TargetDir)\GenerateHCConfigForFLExTrans.*" C:\fwrepo\fw\Output\Debug</PostBuildEvent>
+  </PropertyGroup>
 </Project>
