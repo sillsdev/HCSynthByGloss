@@ -87,4 +87,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(TargetDir)\HCSynthByGloss*.*" C:\fwrepo\fw\Output\Debug &gt; nul</PostBuildEvent>
+  </PropertyGroup>
 </Project>

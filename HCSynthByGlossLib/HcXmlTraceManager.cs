@@ -629,12 +629,9 @@ namespace SIL.HCSynthByGloss
                     {
                         failureEelement = CreateWordElement("Word", (Word)failureObj, false);
                     }
-                    else if (failureObj is AffixProcessAllomorph)
+					else if (failureObj is AffixProcessAllomorph)
                     {
-                        failureEelement = new XElement(
-                            "AffixProcessRule",
-                            "disjunctive failure found"
-                        );
+						failureEelement = CreateWordElement("Word", word, false);
                     }
 
                     trace = CreateParseCompleteElement(
@@ -802,5 +799,39 @@ namespace SIL.HCSynthByGloss
             ////return CreateAllomorphElement("Allomorph", form, msa, inflType, formID2 != 0);
             //return new XElement("sumpn");
         }
-    }
+
+		void ITraceManager.CompoundingRuleNotUnapplied(IMorphologicalRule rule, int subruleIndex, Word input, FailureReason reason, object failureObj)
+		{
+			var trace = new XElement("CompoundingRuleAnalysisTrace", CreateMorphologicalRuleElement(rule));
+			var crule = rule as CompoundingRule;
+			if (crule != null)
+			{
+				var stremProdRestricts = failureObj as MprFeatureSet;
+				if (stremProdRestricts != null)
+				{
+					trace.Add(new XElement("FailureReason", new XAttribute("type", "missingProdRestrict"),
+						new XElement("StemProdRestricts", stremProdRestricts.Select(f => new XElement("MprFeature", f))),
+						new XElement("RuleProdRestricts", crule.NonHeadProdRestrictionsMprFeatures.Select(f => new XElement("MprFeature", f)))));
+				}
+			}
+			trace.Add(new XElement("Output", "*None*"));
+			((XElement)input.CurrentTrace).Add(trace);
+
+		}
+
+		void ITraceManager.CompoundingRuleNotApplied(IMorphologicalRule rule, int subruleIndex, Word input, FailureReason reason, object failureObj)
+		{
+			var trace = new XElement("CompoundingRuleSynthesisTrace", CreateMorphologicalRuleElement(rule));
+			var crule = rule as CompoundingRule;
+			if (crule != null)
+			{
+				trace.Add(new XElement("FailureReason", new XAttribute("type", "missingProdRestrict"),
+					new XElement("StemProdRestricts", input.MprFeatures.Select(f => new XElement("MprFeature", f))),
+					new XElement("RuleProdRestricts", crule.HeadProdRestrictionsMprFeatures.Select(f => new XElement("MprFeature", f)))));
+			}
+			trace.Add(new XElement("Output", "*None*"));
+			((XElement)input.CurrentTrace).Add(trace);
+
+		}
+	}
 }

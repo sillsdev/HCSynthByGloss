@@ -54,9 +54,8 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HCSynthByGlossLib, Version=1.6.5.0, Culture=neutral, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\HCSynthByGlossLib\bin\x64\Release\HCSynthByGlossLib.dll</HintPath>
+    <Reference Include="HCSynthByGlossLib">
+      <HintPath>..\HCSynthByGlossLib\bin\x64\Debug\HCSynthByGlossLib.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -100,9 +99,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy "$(TargetDir)\HCSynthByGloss.exe" C:\fwrepo\fw\Output\Debug &gt; nul
-copy "$(TargetDir)\HCSynthByGloss.exe.config" C:\fwrepo\fw\Output\Debug &gt; nul
-copy "$(TargetDir)\HCSynthByGloss.pdb" C:\fwrepo\fw\Output\Debug &gt; nul
+    <PostBuildEvent>copy "$(TargetDir)\HCSynthByGloss*.*" C:\fwrepo\fw\Output\Debug &gt; nul
 </PostBuildEvent>
   </PropertyGroup>
 </Project>
