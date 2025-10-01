@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Generate Hermit Crab configuration file for use with FLExTrans"
-#define MyAppVersion "1.7.5"
+#define MyAppVersion "1.7.6"
 #define MyAppPublisher "SIL Iternational"
 #define MyAppURL "https://software.sil.org/"
 #define MyAppExeName "GenerateHCConfigForFLExTrans.exe"
